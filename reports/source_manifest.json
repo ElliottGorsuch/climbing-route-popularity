@@ -1,0 +1,284 @@
+{
+  "data/raw/kaggle/routes-v2.zip": {
+    "url": "https://www.kaggle.com/api/v1/datasets/download/matthiasgalban/mountain-project-rock-climbing-routes?datasetVersionNumber=2",
+    "sha256": "6fe060143f765e9e777d9e8b82a8183358b9b00838bad2029717219042649afb",
+    "bytes": 6234157,
+    "downloaded_at_utc": "2026-10-05T21:03:21.417818+00:00"
+  },
+  "data/raw/kaggle/search-metadata.json": {
+    "url": "https://www.kaggle.com/api/v1/datasets/list?search=mountain-project-rock-climbing-routes",
+    "sha256": "b0a1a75a7ab5b37d3877a6187d6d1492a01a7a7028df777ccb77a6bbcb6b2a4f",
+    "bytes": 7996,
+    "downloaded_at_utc": "2026-10-05T21:03:21.418436+00:00"
+  },
+  "data/raw/openbeta/ratings-tree.json": {
+    "url": "https://api.github.com/repos/OpenBeta/climbing-data/git/trees/51a0461a44078148135561c651d25a9203330609?recursive=1",
+    "sha256": "a67d6245fd4773a202a86888c02639c53538452a993a52bc6c1c85e7697904d8",
+    "bytes": 19960,
+    "downloaded_at_utc": "2026-10-05T21:03:21.418749+00:00"
+  },
+  "data/raw/openbeta/ratings/al-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/al-ratings.csv.zip",
+    "sha256": "7f30339e0ad6734d74e5285fca45543fbd5dee06af53284601d370f8f98c1fa1",
+    "bytes": 97230,
+    "downloaded_at_utc": "2026-10-05T21:05:05.258034+00:00"
+  },
+  "data/raw/openbeta/ratings/ar-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ar-ratings.csv.zip",
+    "sha256": "9a33d59ec432180232dff75cc83fa6748d31680e3e5faf8f6b9e488661d051de",
+    "bytes": 323738,
+    "downloaded_at_utc": "2026-10-05T21:05:05.479762+00:00"
+  },
+  "data/raw/openbeta/ratings/az-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/az-ratings.csv.zip",
+    "sha256": "7dd08a5af553dd4f0e7d903cc9598d8a297f95cd1addf70f9a3a7cba8d7c6f49",
+    "bytes": 1282291,
+    "downloaded_at_utc": "2026-10-05T21:05:05.991957+00:00"
+  },
+  "data/raw/openbeta/ratings/ca-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ca-ratings.csv.zip",
+    "sha256": "700ec9402c6791e66c5d566b5978a265907056e713e22c1661b3d5087dd20c35",
+    "bytes": 5619857,
+    "downloaded_at_utc": "2026-10-05T21:05:06.952765+00:00"
+  },
+  "data/raw/openbeta/ratings/co-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/co-ratings.csv.zip",
+    "sha256": "05945aa3ca84dbd20bfb3f333dbc821c9606e43ab6598c76577c5db9e355dce5",
+    "bytes": 7145610,
+    "downloaded_at_utc": "2026-10-05T21:05:06.960270+00:00"
+  },
+  "data/raw/openbeta/ratings/ct-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ct-ratings.csv.zip",
+    "sha256": "cafba2ef311f2779d667e65500ff3b3629ac875c3734070c02c86916761d3772",
+    "bytes": 67618,
+    "downloaded_at_utc": "2026-10-05T21:05:07.107193+00:00"
+  },
+  "data/raw/openbeta/ratings/de-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/de-ratings.csv.zip",
+    "sha256": "e526df108293d13b0fe606853652cafa3ba8a4b2226e8be220bdbf80a43fc5ad",
+    "bytes": 501,
+    "downloaded_at_utc": "2026-10-05T21:05:07.250141+00:00"
+  },
+  "data/raw/openbeta/ratings/ga-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ga-ratings.csv.zip",
+    "sha256": "840294229cede8146e77e7f9fa067b265d550cc9785cc479a00b330560e6052d",
+    "bytes": 27250,
+    "downloaded_at_utc": "2026-10-05T21:05:07.402448+00:00"
+  },
+  "data/raw/openbeta/ratings/ia-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ia-ratings.csv.zip",
+    "sha256": "e43242aef82df91022723ac4786853e3ad9c130758fe7ed73a89854ed891494d",
+    "bytes": 16342,
+    "downloaded_at_utc": "2026-10-05T21:05:07.536070+00:00"
+  },
+  "data/raw/openbeta/ratings/id-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/id-ratings.csv.zip",
+    "sha256": "c3f31b89bd3c58524eba72e6925f2526129a55fc69ed5c11b1661f0761dec683",
+    "bytes": 685725,
+    "downloaded_at_utc": "2026-10-05T21:05:07.795523+00:00"
+  },
+  "data/raw/openbeta/ratings/il-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/il-ratings.csv.zip",
+    "sha256": "e850048dfad45d5ae861e45ff1621a75e31172239907976c5ab84c5ea9472dc5",
+    "bytes": 119939,
+    "downloaded_at_utc": "2026-10-05T21:05:07.972424+00:00"
+  },
+  "data/raw/openbeta/ratings/in-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/in-ratings.csv.zip",
+    "sha256": "70aa25b3bc1f3ec49b931c8147f2be8e113f5174c3265e9630ce8becfa924901",
+    "bytes": 476,
+    "downloaded_at_utc": "2026-10-05T21:05:08.108509+00:00"
+  },
+  "data/raw/openbeta/ratings/ks-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ks-ratings.csv.zip",
+    "sha256": "d126bf9f8fc4d2c4a9eb5d1efe15ac54bcf9f1d0991cf9888c96dad2ba79029d",
+    "bytes": 604,
+    "downloaded_at_utc": "2026-10-05T21:05:08.240412+00:00"
+  },
+  "data/raw/openbeta/ratings/ky-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ky-ratings.csv.zip",
+    "sha256": "fe18759da91f9ed2fcdd06632c7668a55fca898c76de06e9671db9ba4b00fd3e",
+    "bytes": 1679128,
+    "downloaded_at_utc": "2026-10-05T21:05:08.762308+00:00"
+  },
+  "data/raw/openbeta/ratings/ma-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ma-ratings.csv.zip",
+    "sha256": "d4826fea8593448c9ae7e067a6e5789707a189fd42ad83f6bfe27206cb7c86da",
+    "bytes": 59814,
+    "downloaded_at_utc": "2026-10-05T21:05:08.903898+00:00"
+  },
+  "data/raw/openbeta/ratings/md-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/md-ratings.csv.zip",
+    "sha256": "49c9815d10b5f19e7dc06ee42d2e7b199153a9c3131fb8bcd004730da6c77e11",
+    "bytes": 36384,
+    "downloaded_at_utc": "2026-10-05T21:05:09.063238+00:00"
+  },
+  "data/raw/openbeta/ratings/me-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/me-ratings.csv.zip",
+    "sha256": "56eb153a86181018486e0cc24da67e0635579faaa93e44f8060ec7a236a7318d",
+    "bytes": 91839,
+    "downloaded_at_utc": "2026-10-05T21:05:09.227237+00:00"
+  },
+  "data/raw/openbeta/ratings/mi-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/mi-ratings.csv.zip",
+    "sha256": "0b5209d0563720d95dfcaf36ad127218c10ba4256a48db3f87fd19c0b8882f62",
+    "bytes": 38418,
+    "downloaded_at_utc": "2026-10-05T21:05:09.359139+00:00"
+  },
+  "data/raw/openbeta/ratings/mn-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/mn-ratings.csv.zip",
+    "sha256": "c7b62534caf0b71d93a62764fa0d258b5217242a35d63fbd0c9c256f8e4f365b",
+    "bytes": 168977,
+    "downloaded_at_utc": "2026-10-05T21:05:09.530215+00:00"
+  },
+  "data/raw/openbeta/ratings/mo-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/mo-ratings.csv.zip",
+    "sha256": "bf2135786b096ae1804281a4a5ac4314f500af9773e1bde49ffa380102004354",
+    "bytes": 43485,
+    "downloaded_at_utc": "2026-10-05T21:05:09.665153+00:00"
+  },
+  "data/raw/openbeta/ratings/nc-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/nc-ratings.csv.zip",
+    "sha256": "b50bf6525a7c9aa1714bf89db38940a7de5c185ccf48fa5b8a652e0eb67c86c7",
+    "bytes": 390623,
+    "downloaded_at_utc": "2026-10-05T21:05:09.889906+00:00"
+  },
+  "data/raw/openbeta/ratings/nd-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/nd-ratings.csv.zip",
+    "sha256": "b12a624a159b87e17f8d0d736a371a416a3efb439da9aeb4d429b72988a5a86b",
+    "bytes": 900,
+    "downloaded_at_utc": "2026-10-05T21:05:10.021881+00:00"
+  },
+  "data/raw/openbeta/ratings/nh-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/nh-ratings.csv.zip",
+    "sha256": "c83eddb562e277823371e7c2ba1fe5bd2d2549cacc964809c3708c71b35afa00",
+    "bytes": 1160442,
+    "downloaded_at_utc": "2026-10-05T21:05:10.353320+00:00"
+  },
+  "data/raw/openbeta/ratings/nj-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/nj-ratings.csv.zip",
+    "sha256": "19273a1044915a69c5d2b5887bfc3dab4dfc02a17b5bd0adad66ae07f767b4e5",
+    "bytes": 9403,
+    "downloaded_at_utc": "2026-10-05T21:05:10.495519+00:00"
+  },
+  "data/raw/openbeta/ratings/nv-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/nv-ratings.csv.zip",
+    "sha256": "946b57b0b56220bbf33db1c9f08c81714e1c5a959bb9f3e027a33b4ec5648f38",
+    "bytes": 1980310,
+    "downloaded_at_utc": "2026-10-05T21:05:10.849744+00:00"
+  },
+  "data/raw/openbeta/ratings/ny-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ny-ratings.csv.zip",
+    "sha256": "81968823e8e8a320ec4d463c2d4396296299d8a28a3e6f8c32b4b4b6f034e02c",
+    "bytes": 1068335,
+    "downloaded_at_utc": "2026-10-05T21:05:11.163789+00:00"
+  },
+  "data/raw/openbeta/ratings/oh-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/oh-ratings.csv.zip",
+    "sha256": "0f6ec0c57be2e89508f6f4023a6f4d2de5c3f535166aa2b30a03ad884c5c2ab5",
+    "bytes": 29961,
+    "downloaded_at_utc": "2026-10-05T21:05:11.319901+00:00"
+  },
+  "data/raw/openbeta/ratings/ok-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ok-ratings.csv.zip",
+    "sha256": "862e93d47acc784e206c23913b6027020d6b6b7f7eb434ac11c42adf6fe2c367",
+    "bytes": 54685,
+    "downloaded_at_utc": "2026-10-05T21:05:11.465271+00:00"
+  },
+  "data/raw/openbeta/ratings/or-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/or-ratings.csv.zip",
+    "sha256": "9404e785c6f61b55b62edd24b979ea50b545cde97a859a50d002b17cec5a5c34",
+    "bytes": 1002295,
+    "downloaded_at_utc": "2026-10-05T21:05:11.756037+00:00"
+  },
+  "data/raw/openbeta/ratings/pa-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/pa-ratings.csv.zip",
+    "sha256": "a2b9a0e1aadfb01f1a3a7720a35840e41514eeb55c630cbc5035a37d99533b37",
+    "bytes": 154727,
+    "downloaded_at_utc": "2026-10-05T21:05:11.921550+00:00"
+  },
+  "data/raw/openbeta/ratings/ri-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ri-ratings.csv.zip",
+    "sha256": "010fba0eb20343bc9047cbdb7fb37cec064bbb3d234c576b33a88f71aba345cd",
+    "bytes": 1087,
+    "downloaded_at_utc": "2026-10-05T21:05:12.047572+00:00"
+  },
+  "data/raw/openbeta/ratings/sc-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/sc-ratings.csv.zip",
+    "sha256": "e061fc20d393964d0c62a7580e105e49a298c774d12355ede181e5ad54ec2f85",
+    "bytes": 7269,
+    "downloaded_at_utc": "2026-10-05T21:05:12.185063+00:00"
+  },
+  "data/raw/openbeta/ratings/sd-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/sd-ratings.csv.zip",
+    "sha256": "d456adf17f61f2fb3ba332b3291ab6027b35994d3ad25bd8eecfa8f87b071636",
+    "bytes": 297033,
+    "downloaded_at_utc": "2026-10-05T21:05:12.382706+00:00"
+  },
+  "data/raw/openbeta/ratings/tn-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/tn-ratings.csv.zip",
+    "sha256": "f84d3b3b7b65e8da08a0055ba98b87ca29cfbc7994aaef6b06550db888704942",
+    "bytes": 419465,
+    "downloaded_at_utc": "2026-10-05T21:05:12.566687+00:00"
+  },
+  "data/raw/openbeta/ratings/tx-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/tx-ratings.csv.zip",
+    "sha256": "ccb7b10133ad3e7aa3ae06b999a71d5f91e97e5b0a9d1db6aa74f8cd22af1b9b",
+    "bytes": 210697,
+    "downloaded_at_utc": "2026-10-05T21:05:12.758570+00:00"
+  },
+  "data/raw/openbeta/ratings/ut-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/ut-ratings.csv.zip",
+    "sha256": "92edd680e0b3b4864212a51a17c19bffb77309e8e5a7731403e3f18b254e3093",
+    "bytes": 3910300,
+    "downloaded_at_utc": "2026-10-05T21:05:13.479497+00:00"
+  },
+  "data/raw/openbeta/ratings/va-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/va-ratings.csv.zip",
+    "sha256": "d205ebdf3c6de8b0dca8b06f7547e433af05b7def797a16993339da7ab3069ce",
+    "bytes": 75367,
+    "downloaded_at_utc": "2026-10-05T21:05:13.613977+00:00"
+  },
+  "data/raw/openbeta/ratings/vt-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/vt-ratings.csv.zip",
+    "sha256": "25b7c2809c6db236883c83926218cd3f1a0ec25f15edeee56e99253e4d238706",
+    "bytes": 49594,
+    "downloaded_at_utc": "2026-10-05T21:05:13.769475+00:00"
+  },
+  "data/raw/openbeta/ratings/wa-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/wa-ratings.csv.zip",
+    "sha256": "9e6127a86b690a21b447a6a863840776e5602459208b11f62cd55eab9c774757",
+    "bytes": 1435825,
+    "downloaded_at_utc": "2026-10-05T21:05:14.203084+00:00"
+  },
+  "data/raw/openbeta/ratings/wi-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/wi-ratings.csv.zip",
+    "sha256": "a802ffb0d04e696bf2202e5789eac3a2c800dfb6dd6a0d8de671278039c6fcbc",
+    "bytes": 272229,
+    "downloaded_at_utc": "2026-10-05T21:05:14.364217+00:00"
+  },
+  "data/raw/openbeta/ratings/wv-ratings.csv.zip": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/ratings/wv-ratings.csv.zip",
+    "sha256": "0747daa1c525ba75ebabd4d355cd0df2011020f61765271448f4f31566419b0f",
+    "bytes": 802418,
+    "downloaded_at_utc": "2026-10-05T21:05:14.639173+00:00"
+  },
+  "data/raw/openbeta/openbeta-climbs-v2026-10-04.parquet": {
+    "url": "https://github.com/OpenBeta/parquet-exporter/releases/download/v2026-10-04/openbeta-climbs.parquet",
+    "sha256": "7c469ef51f1e13951729a1c7f6a3184b5cbea50c7a8fb6ed8928b7691e40e1ef",
+    "bytes": 10874577,
+    "downloaded_at_utc": "2026-10-05T21:05:14.649651+00:00"
+  },
+  "data/raw/openbeta/export-release.json": {
+    "url": "https://api.github.com/repos/OpenBeta/parquet-exporter/releases/tags/v2026-10-04",
+    "sha256": "909783c7466ba9cee00831c31aaa334eab72362ddde44169e99fa0cf3e9a8586",
+    "bytes": 4876,
+    "downloaded_at_utc": "2026-10-05T21:05:14.650591+00:00"
+  },
+  "data/raw/openbeta/LICENSE-CC0.txt": {
+    "url": "https://raw.githubusercontent.com/OpenBeta/climbing-data/51a0461a44078148135561c651d25a9203330609/LICENSE",
+    "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+    "bytes": 7048,
+    "downloaded_at_utc": "2026-10-05T21:05:14.789077+00:00"
+  }
+}
