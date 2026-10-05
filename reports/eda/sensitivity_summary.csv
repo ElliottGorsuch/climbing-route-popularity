@@ -1,0 +1,16 @@
+population,type,routes,ticks_climbers_spearman,grade_most_total_ticks,grade_highest_mean_ticks_ge30_routes
+All core rock,Sport,36856,0.9957069299934991,5.10,5.7
+All core rock,Trad,33349,0.9932407366164436,5.10,5.6
+All core rock,Bouldering,26530,0.9897783737596259,V0,V1
+At least 5 sample ticks,Sport,22054,0.9916811848680859,5.10,5.3
+At least 5 sample ticks,Trad,16517,0.9884335073607716,5.10,5.6
+At least 5 sample ticks,Bouldering,8422,0.982379847638317,V0,V4
+At least 5 sampled climbers,Sport,21540,0.9929804255413882,5.10,5.3
+At least 5 sampled climbers,Trad,15992,0.991283488419928,5.10,5.6
+At least 5 sampled climbers,Bouldering,8080,0.9877752845527693,V0,V4
+Kaggle only,Sport,36856,0.9957069299934991,5.10,5.7
+Kaggle only,Trad,33291,0.9932523937937445,5.10,5.6
+Kaggle only,Bouldering,59,0.9960670686018644,V2,
+No historical grade resolutions,Sport,36300,0.995712281538493,5.10,5.7
+No historical grade resolutions,Trad,32275,0.9932537211944699,5.10,5.6
+No historical grade resolutions,Bouldering,26530,0.9897783737596259,V0,V1

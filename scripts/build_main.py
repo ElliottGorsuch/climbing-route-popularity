@@ -99,7 +99,7 @@ def build_main(state=None):
     main['sampled_tick_archive_date'] = '2019-04-21'
     main['sampled_tick_source'] = 'https://github.com/jdemeo/Rock_Climbing_Recommendation_System'
     main['sampled_tick_source_commit'] = COMMIT
-    main['popularity_measure'] = 'sampled_climber_count'
+    main['popularity_measure'] = 'sampled_tick_record_count'
     main['has_at_least_5_sampled_climbers'] = main.sampled_climber_count.ge(5)
     main = main.sort_values('mp_route_id').reset_index(drop=True)
     if main.empty or not main.route_key.is_unique or main.sampled_tick_record_count.isna().any():
@@ -131,7 +131,7 @@ def build_main(state=None):
         'routes_with_historical_rating_counts': int(main.rating_record_count.notna().sum()),
         'tick_records_on_retained_routes': int(main.sampled_tick_record_count.sum()),
         'unique_route_ids': bool(main.mp_route_id.is_unique),
-        'columns': len(main.columns), 'state_counts': main.state.value_counts().to_dict(),
+        'columns': len(main.columns), 'primary_popularity_measure': 'sampled_tick_record_count', 'state_counts': main.state.value_counts().to_dict(),
         'missing_by_column': main.isna().sum().to_dict(),
         'protection_counts': main.protection_rating.fillna('not_recorded').value_counts().to_dict(),
         'cautions': ['Sample counts are not platform-wide totals.', 'The source archive caps histories at 1000 ticks per user and contains ambiguous repeated rows.', 'Archived route metadata and newer Kaggle features have different dates.', 'Historical star scores are preserved separately; no scale conversion is assumed.', 'The source archive declares no data license; code MIT licensing does not apply to its data.'],

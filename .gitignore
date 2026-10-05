@@ -9,3 +9,8 @@ data/processed/**
 !data/processed/.gitkeep
 dist/
 *.egg-info/
+
+.runtime/
+web/data/
+
+output/

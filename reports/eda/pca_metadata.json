@@ -1,0 +1,48 @@
+{
+  "eligible_routes": 70205,
+  "fit_routes": 61282,
+  "complete_case_exclusions": 8923,
+  "features": [
+    "log_length",
+    "log_pitches",
+    "grade_order",
+    "average_stars",
+    "is_pg13",
+    "is_r",
+    "is_x"
+  ],
+  "explained_variance_ratio": [
+    0.27423685330849334,
+    0.2057376248813414,
+    0.14939063374138714,
+    0.1437616021597854,
+    0.12464318409203604,
+    0.07280697971621589,
+    0.029423122100740984
+  ],
+  "scaler_mean": [
+    4.276185561723336,
+    0.12811599490628692,
+    9.428641362879802,
+    2.5052038118860356,
+    0.05362096537319278,
+    0.03568747756274273,
+    0.004324271401063934
+  ],
+  "scaler_scale": [
+    0.6967078668442622,
+    0.39541473459167503,
+    1.9653024960499788,
+    0.7128150704332462,
+    0.22526819004386667,
+    0.18550978817289254,
+    0.06561685818380726
+  ],
+  "arrow_display_multiplier": 3,
+  "cautions": [
+    "Popularity is an overlay, not a PCA input.",
+    "Binary protection flags and ordinal grade encoding affect geometry.",
+    "Missing protection designation is not safety.",
+    "Two-component arrows approximate feature correlations only to the extent those features are represented."
+  ]
+}

@@ -37,7 +37,7 @@
 - Tick archive: `data_manipulation_SVD/data/user_routes/user_routes_full.csv.zip`, with 2,115,034 records, 47,002 users, and 118,018 route IDs.
 - Route metadata archive: `master_routes.json.zip`. Its U.S. bouldering records supply MP IDs and features absent from Kaggle. Names, grades, types, coordinates, pitches, and numeric score fields are used; images and descriptions are omitted.
 - The source notebook creates records from the former MP API's ticks, including unrated ticks. The collector requests at most five 200-record pages per user.
-- There are 235,763 repeated user-route-rating rows beyond the first. Dates/tick IDs are absent, so these cannot be classified reliably as legitimate repeat climbs or errors. Distinct sampled users per route are the recommended EDA measure.
+- There are 235,763 repeated user-route-rating rows beyond the first. Dates/tick IDs are absent, so these cannot be classified reliably as legitimate repeat climbs or errors. Absolute record counts are primary by project choice; distinct sampled users provide a sensitivity comparison.
 - Raw user identifiers are used transiently for aggregation and excluded from all derived tables and release assets.
 - No data license is declared in this research repository. The derived snapshot records that limitation and does not label these source records CC0 or MIT. Code licensing and source-data licensing are distinct.
 

@@ -123,5 +123,6 @@
     "Archived route metadata and newer Kaggle features have different dates.",
     "Historical star scores are preserved separately; no scale conversion is assumed.",
     "The source archive declares no data license; code MIT licensing does not apply to its data."
-  ]
+  ],
+  "primary_popularity_measure": "sampled_tick_record_count"
 }

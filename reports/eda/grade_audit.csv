@@ -1,0 +1,4 @@
+analysis_grade_status,routes,total_ticks,mean_ticks,median_ticks,total_route_climber_pairs,mean_climbers,median_climbers
+ambiguous source 5.1; unresolved,29,271,9.344827586206897,2.0,234,8.068965517241379,2.0
+historical family resolves ambiguous 5.1,1604,30029,18.721321695760597,4.0,27039,16.857231920199503,4.0
+source grade family,95804,1922597,20.068024299611707,4.0,1705312,17.80000835038203,4.0

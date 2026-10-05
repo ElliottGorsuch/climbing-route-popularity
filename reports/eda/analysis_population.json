@@ -1,0 +1,20 @@
+{
+  "main_routes": 97437,
+  "core_routes": 96735,
+  "type_counts": {
+    "Sport": 36856,
+    "Trad": 33349,
+    "Bouldering": 26530,
+    "Excluded: ice/aid/snow": 630,
+    "Other rock / top rope": 72
+  },
+  "grade_status_counts": {
+    "source grade family": 95804,
+    "historical family resolves ambiguous 5.1": 1604,
+    "ambiguous source 5.1; unresolved": 29
+  },
+  "core_total_sample_ticks": 1939376,
+  "invalid_core_map_coordinates": 1,
+  "primary_measure": "sampled_tick_record_count",
+  "minimum_tick_filter": null
+}

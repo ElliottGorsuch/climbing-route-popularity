@@ -23,10 +23,10 @@ Each row is a U.S. Mountain Project route with at least one record in the histor
 | archived_average_stars_raw | Raw historical API score, observed in the 0-5 range; no scale conversion assumed |
 | archived_star_votes | Historical number of star votes; not ticks or unique users |
 | sampled_tick_record_count | Archive rows for this route, including unresolved repeated records |
-| sampled_climber_count | Distinct sampled user IDs per route; recommended participation measure |
+| sampled_climber_count | Distinct sampled user IDs per route; distinct-user sensitivity measure |
 | sampled_tick_archive_date | `2019-04-21`, archive commit date, not observation date or collection cutoff |
 | sampled_tick_source / sampled_tick_source_commit | Research repository URL and pinned commit |
-| popularity_measure | `sampled_climber_count`, recommended EDA measure |
+| popularity_measure | `sampled_tick_record_count`, primary EDA measure |
 | has_at_least_5_sampled_climbers | Optional threshold flag; the main dataset does not apply this filter |
 | rating_record_count / rating_valid_count | OpenBeta historical rating rows and rows with a valid 0-4 score |
 | historical_average_user_rating | Mean valid OpenBeta rating, separate from other score fields |

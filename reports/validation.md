@@ -14,3 +14,14 @@ Validated October 5, 2026.
 - Raw archives are excluded from Git and release packages. Counts describe the historical sample; missing source-data licensing and sampling limitations are documented.
 
 The original feature inventory remains available separately in v0.1.0; it is superseded for current analysis by the main dataset.
+
+## EDA and deliverables validation
+
+- All **26** unit tests pass, including classification precedence and historical grade resolution without overwriting source grades.
+- The EDA notebook executes all ten code cells with no errors or warning output.
+- Core population reconciles to 96,735 routes and 1,939,376 sample records, with no five-tick minimum.
+- All nine regression design matrices are full rank. The quality comparison includes a same-case baseline.
+- PCA uses complete sport/trad profiles, excludes popularity from its fitted features, and exports full scores and feature representation diagnostics.
+- The ten-page PDF draft was rendered and visually inspected. It remains a draft pending actual collaboration facts.
+- Browser checks confirm map rendering, filter-driven counts, dominant-style legend, linked tables and PCA navigation. The local explorer is not a verified Base44 deployment.
+- One gross coordinate outlier is excluded only from maps; unresolved state/coordinate disagreements are disclosed.
