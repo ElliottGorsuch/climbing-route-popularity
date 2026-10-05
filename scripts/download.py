@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 KAGGLE = 'matthiasgalban/mountain-project-rock-climbing-routes'
 RATINGS_COMMIT = '51a0461a44078148135561c651d25a9203330609'
 EXPORT_TAG = 'v2026-10-04'
+TICK_COMMIT = 'd1d75bbeb143d4fc863dc1d36173b15b9c0f6ba3'
+TICK_BASE = f'https://raw.githubusercontent.com/jdemeo/Rock_Climbing_Recommendation_System/{TICK_COMMIT}'
 
 
 def download_all(refresh=False):
@@ -54,6 +56,8 @@ def download_all(refresh=False):
     fetch(f'https://github.com/OpenBeta/parquet-exporter/releases/download/{EXPORT_TAG}/openbeta-climbs.parquet', f'data/raw/openbeta/openbeta-climbs-{EXPORT_TAG}.parquet')
     fetch(f'https://api.github.com/repos/OpenBeta/parquet-exporter/releases/tags/{EXPORT_TAG}', 'data/raw/openbeta/export-release.json')
     fetch(f'https://raw.githubusercontent.com/OpenBeta/climbing-data/{RATINGS_COMMIT}/LICENSE', 'data/raw/openbeta/LICENSE-CC0.txt')
+    fetch(f'{TICK_BASE}/data_manipulation_SVD/data/user_routes/user_routes_full.csv.zip', 'data/raw/research_candidates/gt_2019_user_routes_full.csv.zip')
+    fetch(f'{TICK_BASE}/master_routes.json.zip', 'data/raw/research_candidates/gt_2019_master_routes.json.zip')
 
 
 if __name__ == '__main__':

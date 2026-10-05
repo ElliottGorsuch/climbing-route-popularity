@@ -1,0 +1,96 @@
+state,route_source,input_routes,retained_routes,dropped_routes,retained_percent
+Alabama,gt_2019_archive_bouldering,746,463,283,62.06
+Alabama,kaggle_v2,921,455,466,49.4
+Alaska,gt_2019_archive_bouldering,214,86,128,40.19
+Alaska,kaggle_v2,1712,655,1057,38.26
+Arizona,gt_2019_archive_bouldering,1894,835,1059,44.09
+Arizona,kaggle_v2,10351,4730,5621,45.7
+Arkansas,gt_2019_archive_bouldering,389,243,146,62.47
+Arkansas,kaggle_v2,2396,1086,1310,45.33
+California,gt_2019_archive_bouldering,9153,6054,3099,66.14
+California,kaggle_v2,26962,12557,14405,46.57
+Colorado,gt_2019_archive_bouldering,6967,3461,3506,49.68
+Colorado,kaggle_v2,23235,12395,10840,53.35
+Connecticut,gt_2019_archive_bouldering,973,240,733,24.67
+Connecticut,kaggle_v2,797,397,400,49.81
+Delaware,gt_2019_archive_bouldering,5,1,4,20.0
+Delaware,kaggle_v2,2,1,1,50.0
+Florida,gt_2019_archive_bouldering,15,4,11,26.67
+Florida,kaggle_v2,2,0,2,0.0
+Georgia,gt_2019_archive_bouldering,580,430,150,74.14
+Georgia,kaggle_v2,403,159,244,39.45
+Hawaii,gt_2019_archive_bouldering,163,94,69,57.67
+Hawaii,kaggle_v2,84,68,16,80.95
+Idaho,gt_2019_archive_bouldering,666,463,203,69.52
+Idaho,kaggle_v2,3673,1658,2015,45.14
+Illinois,gt_2019_archive_bouldering,381,228,153,59.84
+Illinois,kaggle_v2,1140,509,631,44.65
+Indiana,gt_2019_archive_bouldering,67,49,18,73.13
+Indiana,kaggle_v2,25,1,24,4.0
+Iowa,gt_2019_archive_bouldering,74,48,26,64.86
+Iowa,kaggle_v2,183,101,82,55.19
+Kansas,gt_2019_archive_bouldering,160,29,131,18.12
+Kansas,kaggle_v2,27,4,23,14.81
+Kentucky,gt_2019_archive_bouldering,56,39,17,69.64
+Kentucky,kaggle_v2,3676,1632,2044,44.4
+Maine,gt_2019_archive_bouldering,227,99,128,43.61
+Maine,kaggle_v2,1082,366,716,33.83
+Maryland,gt_2019_archive_bouldering,404,188,216,46.53
+Maryland,kaggle_v2,674,240,434,35.61
+Massachusetts,gt_2019_archive_bouldering,3030,1603,1427,52.9
+Massachusetts,kaggle_v2,551,260,291,47.19
+Michigan,gt_2019_archive_bouldering,68,23,45,33.82
+Michigan,kaggle_v2,373,91,282,24.4
+Minnesota,gt_2019_archive_bouldering,740,425,315,57.43
+Minnesota,kaggle_v2,842,533,309,63.3
+Mississippi,kaggle_v2,6,1,5,16.67
+Missouri,gt_2019_archive_bouldering,280,158,122,56.43
+Missouri,kaggle_v2,881,422,459,47.9
+Montana,gt_2019_archive_bouldering,400,139,261,34.75
+Montana,kaggle_v2,2702,874,1828,32.35
+Nevada,gt_2019_archive_bouldering,602,387,215,64.29
+Nevada,kaggle_v2,5076,2235,2841,44.03
+New Hampshire,gt_2019_archive_bouldering,1773,1421,352,80.15
+New Hampshire,kaggle_v2,3718,1740,1978,46.8
+New Jersey,gt_2019_archive_bouldering,239,77,162,32.22
+New Jersey,kaggle_v2,204,51,153,25.0
+New Mexico,gt_2019_archive_bouldering,804,335,469,41.67
+New Mexico,kaggle_v2,4773,2649,2124,55.5
+New York,gt_2019_archive_bouldering,821,461,360,56.15
+New York,kaggle_v2,3073,1594,1479,51.87
+North Carolina,gt_2019_archive_bouldering,689,466,223,67.63
+North Carolina,kaggle_v2,2500,1191,1309,47.64
+North Dakota,gt_2019_archive_bouldering,26,10,16,38.46
+North Dakota,kaggle_v2,31,8,23,25.81
+Ohio,gt_2019_archive_bouldering,506,289,217,57.11
+Ohio,kaggle_v2,430,149,281,34.65
+Oklahoma,gt_2019_archive_bouldering,345,160,185,46.38
+Oklahoma,kaggle_v2,765,310,455,40.52
+Oregon,gt_2019_archive_bouldering,274,152,122,55.47
+Oregon,kaggle_v2,4080,1720,2360,42.16
+Pennsylvania,gt_2019_archive_bouldering,1128,567,561,50.27
+Pennsylvania,kaggle_v2,1444,707,737,48.96
+Rhode Island,gt_2019_archive_bouldering,1050,550,500,52.38
+Rhode Island,kaggle_v2,14,1,13,7.14
+South Carolina,gt_2019_archive_bouldering,20,8,12,40.0
+South Carolina,kaggle_v2,231,42,189,18.18
+South Dakota,gt_2019_archive_bouldering,687,229,458,33.33
+South Dakota,kaggle_v2,2741,1309,1432,47.76
+Tennessee,gt_2019_archive_bouldering,501,373,128,74.45
+Tennessee,kaggle_v2,2798,1134,1664,40.53
+Texas,gt_2019_archive_bouldering,1317,881,436,66.89
+Texas,kaggle_v2,1616,948,668,58.66
+Utah,gt_2019_archive_bouldering,2501,1617,884,64.65
+Utah,kaggle_v2,13548,7152,6396,52.79
+Vermont,gt_2019_archive_bouldering,485,233,252,48.04
+Vermont,kaggle_v2,820,263,557,32.07
+Virginia,gt_2019_archive_bouldering,2476,535,1941,21.61
+Virginia,kaggle_v2,1744,362,1382,20.76
+Washington,gt_2019_archive_bouldering,1028,645,383,62.74
+Washington,kaggle_v2,8467,3122,5345,36.87
+West Virginia,gt_2019_archive_bouldering,538,308,230,57.25
+West Virginia,kaggle_v2,2692,1476,1216,54.83
+Wisconsin,gt_2019_archive_bouldering,1994,1176,818,58.98
+Wisconsin,kaggle_v2,1562,957,605,61.27
+Wyoming,gt_2019_archive_bouldering,590,248,342,42.03
+Wyoming,kaggle_v2,6010,2592,3418,43.13

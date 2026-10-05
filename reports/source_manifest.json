@@ -280,5 +280,17 @@
     "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
     "bytes": 7048,
     "downloaded_at_utc": "2026-10-05T21:05:14.789077+00:00"
+  },
+  "data/raw/research_candidates/gt_2019_user_routes_full.csv.zip": {
+    "url": "https://raw.githubusercontent.com/jdemeo/Rock_Climbing_Recommendation_System/d1d75bbeb143d4fc863dc1d36173b15b9c0f6ba3/data_manipulation_SVD/data/user_routes/user_routes_full.csv.zip",
+    "sha256": "584578b1571e502cda10c72687fb5633956568f47453b48aab637b194c4ef225",
+    "bytes": 9731689,
+    "downloaded_at_utc": "2026-10-05T21:32:28.152938+00:00"
+  },
+  "data/raw/research_candidates/gt_2019_master_routes.json.zip": {
+    "url": "https://raw.githubusercontent.com/jdemeo/Rock_Climbing_Recommendation_System/d1d75bbeb143d4fc863dc1d36173b15b9c0f6ba3/master_routes.json.zip",
+    "sha256": "209a4e0d6230463a46ce21a88292bb17ed26b30910241cf77c0f0cc9a578dad3",
+    "bytes": 18645438,
+    "downloaded_at_utc": "2026-10-05T21:32:28.161092+00:00"
   }
 }
