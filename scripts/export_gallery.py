@@ -153,6 +153,11 @@ def export_gallery():
     (target / "gallery.json").write_text(manifest)
     (ROOT / "web/gallery.json").write_text(manifest)
     (ROOT / "web/gallery-20261006b.json").write_text(manifest)
+    for source, asset in [
+        ("app.js", "app-20261006b.js"),
+        ("styles.css", "styles-20261006b.css"),
+    ]:
+        shutil.copyfile(ROOT / "web" / source, ROOT / "web" / asset)
 
 
 if __name__ == "__main__":
