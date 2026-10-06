@@ -12,9 +12,9 @@ The Base44 checkpoint **Public atlas entry point and passing scaffold checks** s
 
 - Map filters: sport/trad/bouldering, state, separate YDS/V grade families, recorded protection, length and route name.
 - Layers: total sample ticks, mean ticks per route, recorded route count, summed route–climber pairs and leading style by ticks.
-- Cell inspection, linked top-25 route table and CSV export.
-- PCA: the notebook's seven-feature sport/trad fit; style/tick overlays, loadings, variance and clicked-route details. The projection is not recomputed in the browser.
-- Methods: sampling, provenance, classification and interpretation limits. Regression results and diagnostics remain in the primary notebook and report.
+- Cell inspection, paginated route table (25 more per click), prominent Mountain Project links and CSV export. Grade chips support multiple families and contiguous ranges; map cell sizes are 0.05°, 0.1°, 0.2° and 0.5°.
+- Embeddings (PCA): the notebook's seven-feature sport/trad fit; style/tick overlays with five distinct count bands, loadings, variance and clicked-route details including grades, pitches and separately labeled rating statistics. The projection is not recomputed in the browser.
+- Visualizations: the four revised report figures plus grade, state and regression tables. How it works: sampling, provenance, classification and a climbing/data glossary. Full regression diagnostics remain in the notebook.
 
 ## Data contract and caveats
 
@@ -22,7 +22,7 @@ The Base44 checkpoint **Public atlas entry point and passing scaffold checks** s
 
 `pca.json` contains 6,000 plotted sample routes, scores, fitted metadata and loadings. 5,968 fall within the displayed ±4.5 component SD window; full scores remain in the analytical package. PC1+PC2 represent 48.0% of feature variance. Popularity is an overlay; protection flags are poorly represented in these components.
 
-Primary ticks are archive rows including ambiguous repeats. The archive commit date is April 21, 2019; observation dates are unknown and histories were capped at 1,000. These are not current/full Mountain Project totals. Summed climbers are route–climber pairs, not distinct people across an area. Coordinates describe climbing areas; 0.2° bins are not equal-area densities. The source archive specifies no data license.
+Primary ticks are archive rows including ambiguous repeats. The archive commit date is April 21, 2019; observation dates are unknown and histories were capped at 1,000. These are not current/full Mountain Project totals. Summed climbers are route–climber pairs, not distinct people across an area. Coordinates describe climbing areas; adjustable degree bins are not equal-area densities. The source archive specifies no data license.
 
 ## Verification and local preview
 
@@ -34,3 +34,7 @@ python -m http.server 8765 --directory web --bind 127.0.0.1
 ```
 
 Leaflet is pinned to 1.9.4 with integrity hashes; OpenStreetMap retains attribution. Library/tiles require internet. Missing exports or failed library loads display an error rather than substituting invented records.
+
+## Rebuilding the report gallery
+
+After generating the EDA outputs, run `python scripts/build_report.py` with the report dependencies, then `python scripts/export_gallery.py`. The latter copies the report SVG figures to `web/figures/` and writes `web/data/gallery.json`. Route exports now also include original grade, Kaggle stars, historical rating mean and valid-rating count; missing measurements remain null. `web/gallery.json` stores the gallery manifest for static delivery, alongside the existing compressed snapshots.

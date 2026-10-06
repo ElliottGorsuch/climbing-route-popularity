@@ -5,6 +5,7 @@ from html import escape
 from pathlib import Path
 
 import pandas as pd
+from report_figures import build_report_figures
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.pagesizes import letter
@@ -33,11 +34,16 @@ def main():
     for name, file in [
         ("Body", "DejaVuSans.ttf"),
         ("BodyBold", "DejaVuSans-Bold.ttf"),
+        ("BodyItalic", "DejaVuSans-Oblique.ttf"),
         ("Title", "DejaVuSerif.ttf"),
     ]:
         pdfmetrics.registerFont(TTFont(name, str(font_root / file)))
     pdfmetrics.registerFontFamily(
-        "Body", normal="Body", bold="BodyBold", italic="Body", boldItalic="BodyBold"
+        "Body",
+        normal="Body",
+        bold="BodyBold",
+        italic="BodyItalic",
+        boldItalic="BodyBold",
     )
     styles = getSampleStyleSheet()
     styles.add(
@@ -87,6 +93,19 @@ def main():
             alignment=TA_LEFT,
         )
     )
+    styles.add(
+        ParagraphStyle(
+            name="ReferenceProject",
+            parent=styles["BodyTextProject"],
+            fontSize=8.4,
+            leading=12,
+            leftIndent=14,
+            firstLineIndent=-14,
+            spaceAfter=10,
+        )
+    )
+    data, states = build_report_figures()
+    grades = pd.read_csv(EDA / "grade_summary.csv")
     story = []
 
     def p(text, style="BodyTextProject"):
@@ -101,7 +120,7 @@ def main():
         story.append(Image(str(path), width=width, height=height or width * h / w))
         story.append(Spacer(1, 8))
 
-    def table(rows, widths):
+    def table(rows, widths, padding=7):
         wrapped = [
             [Paragraph(escape(str(value)), styles["TableProject"]) for value in row]
             for row in rows
@@ -114,8 +133,8 @@ def main():
                     ("VALIGN", (0, 0), (-1, -1), "TOP"),
                     ("LEFTPADDING", (0, 0), (-1, -1), 7),
                     ("RIGHTPADDING", (0, 0), (-1, -1), 7),
-                    ("TOPPADDING", (0, 0), (-1, -1), 7),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+                    ("TOPPADDING", (0, 0), (-1, -1), padding),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), padding),
                     ("LINEBELOW", (0, 0), (-1, -1), 0.4, colors.HexColor("#d8e1dd")),
                 ]
             )
@@ -126,243 +145,382 @@ def main():
     def nextpage():
         story.append(PageBreak())
 
-    p("Climbing route popularity<br/>in a historical U.S. sample", "ProjectTitle")
+    repo = "https://github.com/ElliottGorsuch/climbing-route-popularity"
+    notebook = repo + "/blob/main/notebooks/02_popularity_eda.ipynb"
+    atlas = "https://climb-data-viz.base44.app"
+
+    def link(url, label):
+        return f'<link href="{url}" color="#287060">{label}</link>'
+
+    p("What makes a climb popular?", "ProjectTitle")
     p(
-        "John Elliott Gorsuch and Victor Lee | SIADS 593 | Team-review draft",
+        "A historical look at U.S. climbing routes<br/>John Elliott Gorsuch and Victor Lee | SIADS 593 | Team-review draft",
         "CaptionProject",
     )
     heading("Motivation and research questions")
     p(
-        "A climbing route can attract recorded activity because of its difficulty, style, location, quality or physical commitment. We investigate which route characteristics relate to popularity, while distinguishing high total activity from high activity per available route."
+        "As climbers, we want to know what makes certain routes get climbed more than others. Is it the grade, the style, the location, or the route itself? We use recorded ticks to explore which features go along with popular climbs."
     )
     p(
-        "Our questions are: (1) how popularity varies with climbing type and difficulty; (2) how geographic participation and climbing-style shares differ; and (3) how length, pitches, quality and recorded protection relate to participation. Bouldering and roped grades are analyzed separately."
+        "We ask three questions: (1) Which grades and climbing styles get the most ticks? (2) How do popularity and style mix change across the U.S.? (3) How do length, pitches, star ratings and protection designations relate to popularity? We keep roped YDS grades and bouldering V grades separate."
+    )
+    heading("Executive summary")
+    p(
+        "Our core dataset has <b>96,735 rock climbs and 1,939,376 historical tick records</b>. <b>5.10 leads total ticks for both sport and trad, and V0 leads bouldering.</b> But the biggest total and the highest average per route answer different questions."
     )
     p(
-        "Wilder's Mountain Project analysis compared popular routes within difficulty grades [1]. RouteFinder mapped sport-climbing difficulty and explored descriptive route characteristics [2]. These precedents motivate our combined grade, geographic and feature analysis. Our contribution is a documented ID-based join, an explicit historical sample outcome, and comparisons that expose sensitivity to source coverage and adjustment."
+        "<b>Sport 5.7 has the highest mean of any style-grade group: 47.3 ticks per route across 1,722 routes.</b> Here are the top three means within each style:"
     )
-    heading("What we found")
+    rows = [["Style", "1st: grade / mean", "2nd: grade / mean", "3rd: grade / mean"]]
+    for kind in ["Sport", "Trad", "Bouldering"]:
+        top = grades.loc[grades.analysis_type.eq(kind) & grades.routes.ge(30)].nlargest(
+            3, "mean_ticks"
+        )
+        rows.append(
+            [kind]
+            + [
+                f"{r.analysis_grade_family} / {r.mean_ticks:.2f}"
+                for r in top.itertuples()
+            ]
+        )
+    table(rows, [90, 126, 126, 126])
     p(
-        "The matched dataset contains 97,437 routes. Core rock comparisons retain 96,735 sport, trad and bouldering routes, with 1,939,376 sample tick records. The 5.10 family leads total sport and trad activity; V0 leads bouldering. Per-route averages have different leaders. A quality-adjusted regression changes the sign of the length association, showing why a simple popularity narrative would be incomplete."
+        "Means are ticks per route; rankings require at least 30 routes per grade group, not 30 ticks. Sport 5.3 has only 49 routes. V1 and V0 round to the same mean and are nearly tied. No minimum-tick filter is used.",
+        "CaptionProject",
     )
     p(
-        "Absolute tick records are the primary measure, with no minimum-tick cutoff. They are historical archive rows, including unresolved repeats, rather than complete Mountain Project totals or confirmed successful ascents. This report summarizes the executed notebook and its companion atlas."
+        "Geography changes the mix of sport, trad and bouldering activity. Length also tells a more complicated story once we account for star ratings. Our "
+        + link(atlas, "interactive Climbing Atlas")
+        + " lets readers explore the same data by location, style and grade."
     )
     p(
-        "Draft status: analysis and figures are reproducible. Team contributions, collaboration evidence and any required AI-assistance disclosure must be confirmed before submission.",
+        "These are patterns in a historical sample, not complete Mountain Project totals. Earlier projects explored popularity by grade (Wilder, 2014) and sport-route characteristics (Present et al., n.d.); we bring those ideas together with a reproducible joined dataset.",
         "CaptionProject",
     )
     nextpage()
-    heading("Data sources and reproducible access")
+
+    heading("Data sources and how we combined them")
+    p(
+        "We started with route descriptions, added a historical tick archive, and then attached a second source of rating information. Each source brings something different to the project."
+    )
     table(
         [
-            ["Source", "Magnitude and content", "Access"],
+            ["Source", "What it adds", "How we accessed it"],
             [
-                "Kaggle version 2 [3]",
-                "151,037 route rows; grades, types, location, stars, pitches and lengths.",
-                "Published CSV ZIP; dataset version pinned.",
+                "Kaggle (Galban, n.d.)",
+                "151,037 route rows with grades, styles, location, stars, pitches and length.",
+                "Published CSV ZIP, version 2.",
             ],
             [
-                "Georgia Tech archive [4]",
-                "2,115,034 tick-derived rows; 47,002 users; 118,018 route IDs. 189,177 metadata IDs before U.S. filtering.",
-                "Published CSV ZIP and JSON ZIP; Git commit d1d75b... pinned.",
+                "Georgia Tech archive (Ajayi et al., 2019)",
+                "2,115,034 tick-derived rows from 47,002 users, covering 118,018 route IDs. Also includes historical route metadata.",
+                "Published CSV/JSON ZIPs at pinned commit d1d75b...",
             ],
             [
-                "OpenBeta ratings [5]",
-                "41 state archives; rating-record counts for 63,639 main-table routes.",
-                "Published CSV ZIPs; Git commit 51a046... pinned.",
+                "OpenBeta (n.d.)",
+                "41 state rating archives; adds rating-record counts for 63,639 routes in our main dataset.",
+                "Published CSV ZIPs at pinned commit 51a046...",
             ],
         ],
-        [100, 220, 148],
+        [113, 220, 135],
     )
     p(
-        "The download script caches published files and records source URLs, bytes, retrieval times and SHA-256 checksums. The main build is reproducible with download.py and build_main.py. The EDA modules create figures, tables, PCA scores, regression diagnostics and website exports. Dependency versions and a full environment lock accompany the notebook."
+        "The download script saves the source files and logs their URLs, sizes, retrieval times and checksums. We can therefore check exactly which files went into the analysis. OpenBeta rating counts are supplemental; they are not tick counts."
     )
-    heading("Join population")
+    heading("Join population: the process we followed")
     p(
-        "Normalize 151,037 Kaggle routes and add 48,046 U.S. historical bouldering IDs absent from Kaggle, giving 199,083 unique feature IDs. Aggregate archive rows and distinct users by route. An inner join on MP ID retains 97,437 and excludes 101,646 features without sampled ticks. Additional metadata and rating aggregates are left-joined without changing the matched population. No fuzzy name matching is used."
+        "First, we cleaned the 151,037 Kaggle routes and added 48,046 U.S. bouldering routes from the historical archive that were missing from Kaggle. That gave us 199,083 unique routes with feature data."
     )
     p(
-        "The main population includes 70,907 Kaggle routes and 26,530 historical boulder additions. A route absent from the archive is excluded, not assigned zero traffic. Pre-join retention is reported by state and source; those denominators differ from the subsequent rock-only population."
+        "Next, we counted tick records and distinct climbers for each Mountain Project route ID. We used an <b>inner join on that ID</b> to keep routes present in both the feature table and the tick totals. This retained <b>97,437 routes</b> and dropped 101,646 routes without sampled ticks. We then attached extra metadata and rating totals with left joins, so those additions did not remove any routes."
     )
-    heading("Date, privacy and reuse limitations")
     p(
-        "The archive was committed April 21, 2019; individual dates and the observation cutoff are unknown. Kaggle and OpenBeta snapshots have different dates. Raw users are used only transiently for aggregation and are excluded from releases. Kaggle/OpenBeta declare CC0 for their data; the research tick archive declares no data license. Our MIT code license does not license its original records. No current Mountain Project scraping was performed."
+        "The result contains 70,907 Kaggle routes and 26,530 historical boulder additions. We matched route IDs rather than guessing from names. A missing route means we have no sampled tick data for it; it does not mean nobody climbed it."
+    )
+    p(
+        "This process is reproducible: download.py retrieves the pinned inputs, and build_main.py rebuilds the join. Our "
+        + link(notebook, "EDA notebook")
+        + " documents the data and analysis choices, then reproduces the summaries and models from the main table. The source scripts make the earlier join steps reproducible too."
+    )
+    heading("Dates, privacy and reuse limits")
+    p(
+        "The tick archive was committed on April 21, 2019, but individual tick dates and its observation cutoff are unknown. Kaggle and OpenBeta come from different snapshots. User IDs are used only to build aggregate counts and are excluded from releases. Kaggle and OpenBeta declare CC0 for their data; the research tick archive has no declared data license. Our MIT code license does not license the original records. We did not scrape current Mountain Project pages."
     )
     nextpage()
-    heading("Cleaning, manipulation and analysis decisions")
+
+    heading("Exploratory data analysis (EDA)")
     p(
-        "Types are mutually exclusive for comparison: any ice, aid or snow flag is excluded first; among the rest, any trad flag wins, then bouldering, then sport. This retains 36,856 sport, 33,349 trad and 26,530 bouldering routes. The 630 ice/aid/snow and 72 other/top-rope-only records remain documented in the full table."
+        "We kept the main comparison focused on rock climbing: <b>36,856 sport, 33,349 trad and 26,530 bouldering routes</b>. The full table still includes 630 ice, aid or snow routes and 72 other/top-rope-only records, but we leave them out of the core comparisons."
     )
     p(
-        "Grades remain text. Roped grades are grouped into major YDS families (for example, 5.10a and 5.10d both enter 5.10); boulders use separate V families. V ranges use the lower bound, while V-easy/VB are separate. We found apparent trailing-zero loss in source 5.1 values. Archived 5.1/5.10 families resolve 1,604 analysis grades with provenance flags; 29 remain unresolved. Original source fields never change. Excluding these historical resolutions is a sensitivity check."
+        "To avoid counting a mixed route twice, we exclude ice/aid/snow flags first. For the remaining routes, any trad designation puts the climb in trad; otherwise bouldering takes priority, then sport. A sport/trad route therefore counts as trad because it includes trad gear."
     )
     p(
-        "Missing lengths, pitches, quality and protection values remain missing. Recorded PG-13/R/X become binary flags; missing designation is not evidence of safety. Length is treated as feet following the source convention, an assumption recorded in the dictionary. Model/PCA complete-case filters apply only to those analyses. One California boulder has coordinates in Australia; maps omit it while other analyses retain its counts."
+        "We group roped grades into YDS families: 5.10a through 5.10d all count as 5.10. Boulders stay on the V scale; ranges use the lower grade, and V-easy/VB stay separate. We also found source grades that appeared to lose the zero in 5.10. Historical grades helped resolve 1,604 cases; 29 stay unresolved. We keep the original grades and flag each correction, then check results without those corrections."
+    )
+    p(
+        "Boulders are not pitched climbs, and this archive usually has no comparable length-in-feet or Kaggle star data for them. We do not invent those values. Protection designations such as PG-13, R and X are optional: an absent designation means <b>not recorded</b>, not necessarily safe. We still have plenty of grade, style, location and tick data for the main EDA."
     )
     image("05_missingness", width=410)
     p(
-        "Figure 1. Missingness by core climbing type. Historical boulder additions usually lack length, pitches and Kaggle quality scores. Those gaps rule out a credible boulder-length comparison.",
+        "Figure 1. Missing data by climbing style. Most historical boulders lack length, pitches and Kaggle stars. We use those features where available for sport/trad analyses, and keep bouldering comparisons focused on the fields we actually have. Length follows the source's feet convention.",
         "CaptionProject",
     )
     nextpage()
-    heading("Popularity distributions and repeated records")
-    image("distribution_report")
+
+    heading("Popularity: most routes have a few ticks")
+    image("popularity_bins_report")
     p(
-        "Figure 2. Recorded participation has a long tail within each style. Logarithmic axes expose both the many low-count routes and the small set with high counts. Comparisons are conditional on at least one archive record.",
+        "Figure 2. Each bar shows the percentage of a style's routes in a tick-count range. For example, '2-4' means two to four recorded ticks per route. All three panels use the same percentage scale. Every retained route has at least one sampled tick; we apply no five-tick minimum.",
         "CaptionProject",
     )
-    p(
-        "The primary outcome is sampled_tick_record_count, which counts every source archive row. sampled_climber_count counts distinct user IDs for each route. Summing the latter across routes gives route-climber participation pairs, not distinct people across an area."
-    )
-    p(
-        "The original collection capped histories at 1,000 records per user. There are 235,763 repeated user-route-rating rows beyond their first appearances. Tick IDs and dates are absent, so these repeats cannot be classified reliably as genuine repeat climbs or collection duplicates. The repeat-climbing interpretation is therefore plausible but unverified."
-    )
-    p(
-        "Within all core rock records, tick and climber route ranks are strongly related: Spearman correlations are approximately 0.996 for sport, 0.993 for trad and 0.990 for bouldering. This supports checking both quantities, but does not establish complete or representative participation."
-    )
-    p(
-        "Means are sensitive to the tail, so descriptive tables include medians, group counts and totals. The five-tick and five-climber populations are sensitivity checks only; the primary population uses no such filter."
-    )
-    nextpage()
-    heading("Question 1: grade and climbing style")
-    grades = pd.read_csv(EDA / "grade_summary.csv")
-    rows = [["Style", "Largest total", "Sample ticks", "Highest mean*", "Mean ticks"]]
+    summaries = [["Style", "Routes", "Median ticks", "Mean ticks", "100+ ticks"]]
     for kind in ["Sport", "Trad", "Bouldering"]:
-        t = grades.loc[grades.analysis_type.eq(kind)].dropna(
-            subset=["analysis_grade_family"]
+        ticks = data.loc[data.analysis_type.eq(kind), "ticks"]
+        summaries.append(
+            [
+                kind,
+                f"{len(ticks):,}",
+                f"{ticks.median():.0f}",
+                f"{ticks.mean():.2f}",
+                f"{ticks.ge(100).mean():.1%}",
+            ]
         )
-        volume = t.loc[t.total_ticks.idxmax()]
-        supported = t.loc[t.routes.ge(30)]
-        average = supported.loc[supported.mean_ticks.idxmax()]
+    table(summaries, [90, 92, 95, 95, 96])
+    p(
+        "A small number of heavily ticked climbs pull the averages up. That is why we show both the mean and the median: the mean captures overall activity per route, while the median describes the middle route in the sample."
+    )
+    p(
+        "Our main measure counts every archive row. A second measure counts distinct climbers on each route. Their route rankings are very similar: correlations are about 0.996 for sport, 0.993 for trad and 0.990 for bouldering. Adding route-level climber counts across an area counts route-climber pairs, not unique people in that area."
+    )
+    p(
+        "There is a catch with repeated records. The original collection capped each user's history at 1,000 records, and 235,763 user-route-rating rows repeat earlier entries. Without tick IDs or dates, we cannot tell which are repeat climbs and which are collection duplicates. We keep the records, but do not treat them as confirmed repeat ascents."
+    )
+    nextpage()
+
+    heading("Question 1: which grades get the most ticks?")
+    p(
+        "The table below ranks the top three grades <b>by total ticks within each style</b>. Means and medians help us see whether a big total comes from many routes or high activity per route."
+    )
+    rows = [["Style", "Grade", "Routes", "Total ticks", "Mean", "Median"]]
+    for kind in ["Sport", "Trad", "Bouldering"]:
+        top = grades.loc[grades.analysis_type.eq(kind)].nlargest(3, "total_ticks")
+        for r in top.itertuples():
+            rows.append(
+                [
+                    kind,
+                    r.analysis_grade_family,
+                    f"{r.routes:,}",
+                    f"{r.total_ticks:,}",
+                    f"{r.mean_ticks:.2f}",
+                    f"{r.median_ticks:.0f}",
+                ]
+            )
+    table(rows, [85, 53, 80, 110, 70, 70])
+    p(
+        "Sport 5.10 has almost twice the ticks of sport 5.9, but fewer ticks per route: 28.45 versus 39.20. Sport 5.11 averages 17.03. The 5.10 family includes all letter subgrades and many routes, so its leading total is not the same as saying a typical 5.10 is the most popular climb."
+    )
+    p(
+        "For a different view, these are the <b>top three grades by mean ticks per route</b>. We require at least 30 routes per group so a tiny group is less likely to lead the ranking."
+    )
+    rows = [["Style", "Mean leaders, highest first", "Routes in those groups"]]
+    for kind in ["Sport", "Trad", "Bouldering"]:
+        top = grades.loc[grades.analysis_type.eq(kind) & grades.routes.ge(30)].nlargest(
+            3, "mean_ticks"
+        )
         rows.append(
             [
                 kind,
-                volume.analysis_grade_family,
-                f"{int(volume.total_ticks):,}",
-                average.analysis_grade_family,
-                f"{average.mean_ticks:.2f}",
+                "; ".join(
+                    f"{r.analysis_grade_family}: {r.mean_ticks:.2f}"
+                    for r in top.itertuples()
+                ),
+                "; ".join(
+                    f"{r.analysis_grade_family}: {r.routes:,}" for r in top.itertuples()
+                ),
             ]
         )
-    table(rows, [85, 92, 98, 98, 95])
+    table(rows, [85, 215, 168])
     p(
-        "* Highest means are ranked only among groups containing at least 30 routes, not 30 ticks. All groups remain in the descriptive notebook.",
+        "Sport 5.7 is the overall mean leader, even before the 30-route screen. The high sport 5.3 mean comes from just 49 routes and deserves extra caution. V1, V0 and V4 are nearly tied; V0-V4 all average roughly 8.2 ticks, so we would not call one a clear bouldering sweet spot."
+    )
+    p(
+        "These rankings depend on the sample. A five-tick or five-climber filter keeps the total leaders the same, but changes some mean leaders. Those are sensitivity checks; the main analysis keeps all matched routes.",
         "CaptionProject",
     )
-    p(
-        "The 5.10 family has 10,923 sport routes and 8,542 trad routes in the retained sample. It leads total tick volume for both styles, but this broad family includes letter subgrades and has more routes than many lower families. Total activity does not isolate the popularity of a typical route."
-    )
-    p(
-        "Mean ticks peak at 5.7 for sport (47.31 per route; 1,722 routes) and 5.6 for trad (36.87; 2,171 routes). V0 leads total boulder activity (36,701 ticks; 4,435 routes). V1 has the highest supported boulder mean (8.28; 3,893 routes), but V0-V4 means are very close. These differences should not be presented as strong evidence of a unique boulder-grade optimum."
-    )
-    p(
-        "Filtering to five tick records or five sampled climbers leaves the total-volume leaders unchanged, while mean leaders change for sport and bouldering. This illustrates how selecting on the popularity outcome affects the claim about a 'most popular grade.'"
-    )
-    p(
-        "The full notebook provides total and per-route panels for every grade family, route counts, medians and state-grade tables. Letter/suffix grouping and historical grade resolution are explicit manipulation choices, not implied precision about physical difficulty."
-    )
     nextpage()
-    heading("Question 2: geography and style shares")
-    image("state_report")
+
+    heading("Question 2: where are the ticks?")
+    image("state_counts_report", width=468, height=220)
     p(
-        "Figure 3. Climbing-style shares in the ten states with highest recorded tick volume. The companion notebook shows totals as well as shares; these answer different questions.",
+        "Figure 3. The ten states with the most historical rock-climbing ticks, ordered from highest to lowest. Bar segments show each style's contribution to the total. Exact counts appear below; the notebook includes all states in the sample.",
         "CaptionProject",
     )
+    rows = [["State", "Bouldering", "Sport", "Trad", "Total"]]
+    for state, r in states.head(10).iterrows():
+        rows.append(
+            [state]
+            + [f"{int(r[c]):,}" for c in ["Bouldering", "Sport", "Trad", "Total"]]
+        )
+    table(rows, [104, 91, 91, 91, 91], padding=5)
     p(
-        "The atlas is published at https://climb-data-viz.base44.app. State and geographic-cell summaries use the same core classification. The interactive atlas can filter style, state, grade family, recorded protection, name and length, then show total ticks, mean ticks per route, route counts, route-climber pairs or the leading style by ticks. Cell inspection links to its highest-recorded routes."
+        "Colorado leads total ticks, followed by California and Utah. The split by style tells another story: a state can have a large total but a very different mix of sport, trad and bouldering. Counts combine the number of available routes with activity on those routes; they do not measure regional preference on their own."
     )
     p(
-        "The static spatial figure in the notebook uses a contiguous-U.S. view. Alaska and Hawaii remain in nationwide tables and the atlas. Fixed 0.2-degree latitude/longitude cells are not equal-area densities, and coordinates can be shared climbing-area locations. Some source state labels disagree with coordinates; state summaries use labels and maps use coordinates. Empty cells mean no matching retained records, not proof of no climbing."
-    )
-    p(
-        "Regional comparisons must accompany route counts and pre-join retention. These data cannot distinguish climbing opportunities, route age, reporting habits, access conditions or source sampling from intrinsic regional preference. We therefore describe recorded activity patterns rather than universal claims about which style a region's climbers prefer."
+        "Explore these patterns in the "
+        + link(atlas, "Climbing Atlas")
+        + ": filter by state, style and grade, and switch between total ticks, mean ticks, route counts and the leading style. Alaska and Hawaii remain included. Map cells are 0.2-degree bins, not equal-area densities; blank cells mean no matching sample records.",
+        "CaptionProject",
     )
     nextpage()
-    heading("Question 3: feature relationships and PCA")
+
+    heading("Question 3: how do route features fit together?")
     image("pca_report")
     p(
-        "Figure 4. A sport/trad correlation biplot. Points use unit-SD component scores; feature/PC correlation arrows are enlarged by three. Dashed leaders separate labels from arrow tips. Popularity is not fitted into PCA; its overlay appears in the notebook.",
+        "Figure 4. PCA biplot for sport/trad routes. Dots represent route profiles. Arrows show how features line up with the two plotted components; arrow lengths are enlarged threefold for readability. Popularity was not used to fit PCA. The notebook adds a popularity overlay.",
         "CaptionProject",
     )
     meta = json.loads((EDA / "pca_metadata.json").read_text())
     p(
-        f"PCA fits {meta['fit_routes']:,} complete sport/trad routes from {meta['eligible_routes']:,} eligible records. Features are standardized log length, log pitches, coarse YDS ordinal family, Kaggle stars and recorded PG-13/R/X flags. The first two components retain {100 * sum(meta['explained_variance_ratio'][:2]):.1f}% of overall feature variance. The displayed points are a fixed 6,000-route sample, clipped outside +/-4.5 component-score SDs; complete scores are exported."
+        f"Think of PCA as a way to put several route features on one map. We fit it to {meta['fit_routes']:,} sport/trad routes with complete data, using length, pitches, YDS grade family, Kaggle stars and PG-13/R/X flags. We put the features on comparable scales first (scikit-learn developers, n.d.). The two plotted directions capture {100 * sum(meta['explained_variance_ratio'][:2]):.1f}% of feature variation, so this is a useful view rather than the whole picture."
     )
     p(
-        "Length and pitches point in similar directions and are well represented. Protection flags are poorly represented in these two components: about 6.9% for PG-13, 9.9% for R and 0.9% for X. A short protection arrow does not establish a weak relationship with popularity. The pairwise Spearman matrix and adjusted regressions supply complementary evidence."
+        "<b>Length and pitches point in similar directions</b>, which fits the climbing interpretation: longer routes tend to have more pitches. Features with similar arrow directions tend to move together in this view; dots closer together have similar profiles in these two components."
     )
     p(
-        "PCA depends on binary-flag scaling and an ordinal approximation of grade. It summarizes feature geometry, rather than proving causal relationships or a validated similarity metric. The complete-case sample differs from the full dataset and can introduce additional selection."
+        "Protection arrows are short because this view captures little of their variation: about 6.9% for PG-13, 9.9% for R and 0.9% for X. That does not mean protection is unrelated to popularity. We need the correlation tables and regression models to explore that question."
+    )
+    p(
+        "The figure uses a fixed 6,000-route display sample and clips points beyond +/-4.5 component-score standard deviations. Full scores remain available. Grade is a coarse ordered scale, and missing-feature exclusions can affect the picture. PCA summarizes route profiles; it does not establish cause and effect.",
+        "CaptionProject",
     )
     nextpage()
-    heading("Regression: adjusted, conditional associations")
+
+    heading("Regression: what changes when we compare similar routes?")
     p(
-        "We fit exploratory OLS models of log(1 + sampled ticks), rather than a raw-count linear model. Sport/trad models include categorical grade family and state, trad versus sport, log length, log pitches and recorded protection flags. A quality extension adds Kaggle stars. Its comparison baseline uses exactly the same records. Separate boulder models omit unavailable length/pitch/quality features. Grade groups with fewer than 30 complete routes are excluded from modeling."
+        "A simple length-versus-ticks plot mixes together grades, states and climbing styles. Regression lets us ask a narrower question: when we account for those other features, what relationship remains between length and popularity?"
     )
     p(
-        "Intervals use climbing-area clusters (state plus coordinates rounded to 0.001 degrees). This allows within-area dependence but cannot resolve shared users, collection truncation or missing exposure. Full-rank design matrices are checked. R-squared describes in-sample variance in the transformed outcome, not raw-count explanation or forecast accuracy."
+        "For sport/trad, we account for grade family, state, style, length, pitches and recorded protection. A second model adds star ratings. <b>We compare those two models on the same 61,277 routes</b>, so a change is not just caused by using a different sample. Bouldering gets a separate model without missing length, pitch or quality fields."
+    )
+    p(
+        "Tick counts have a long tail, so we model log(1 + ticks). This keeps a handful of very popular climbs from dominating the fit. The '1 +' lets the transformation handle small counts. These are exploratory comparisons, not a tested prediction system."
     )
     models = pd.read_csv(EDA / "regression_model_comparison.csv")
-    rows = [["Model", "Routes", "Log-outcome R²"]]
+    rows = [["Model", "Routes", "Fit (R²)"]]
     for name, label in [
-        ("roped_ticks", "Roped tick baseline"),
-        ("roped_ticks_quality_baseline", "Same-case baseline"),
-        ("roped_ticks_quality", "Same-case + stars"),
-        ("boulder_ticks", "Boulder ticks"),
+        ("roped_ticks_quality_baseline", "Sport/trad, without stars"),
+        ("roped_ticks_quality", "Same sport/trad routes, with stars"),
+        ("boulder_ticks", "Bouldering, separate model"),
     ]:
-        row = models.loc[models.name.eq(name)].iloc[0]
-        rows.append([label, f"{int(row.fit_routes):,}", f"{row.r_squared:.3f}"])
-    table(rows, [225, 110, 133])
+        r = models.loc[models.name.eq(name)].iloc[0]
+        rows.append([label, f"{int(r.fit_routes):,}", f"{r.r_squared:.3f}"])
+    table(rows, [270, 95, 103])
     p(
-        "Adding stars raises same-case R-squared from 0.121 to 0.213. The log-length coefficient changes from approximately +0.157 without stars to -0.123 with stars. This corresponds to associations of about +11.5% versus -8.2% in geometric (ticks + 1) for doubling length, conditional on the model. These are not arithmetic count ratios or causal effects."
+        "R² measures how much variation the model describes in the logged outcome, using the data it was fitted on. Adding stars improves that fit from about 12% to 21%. This is not the percent of raw ticks explained or evidence of prediction accuracy on new routes.",
+        "CaptionProject",
+    )
+    heading("The main takeaway: length depends on context")
+    table(
+        [
+            ["Comparing routes twice as long", "Length association"],
+            ["Without accounting for stars", "+11.5%"],
+            ["After accounting for stars", "-8.2%"],
+        ],
+        [335, 133],
     )
     p(
-        "Recorded PG-13/R/X have negative adjusted associations in both model specifications. The models compare designations with an unrecorded reference, which must not be called a safe group. Quality can reflect participation as well as influence it, and unknown route age/access can confound all these associations."
+        "These percentages describe the model's geometric (ticks + 1) scale, not a change in the arithmetic average tick count. The length coefficient switches from +0.157 to -0.123. <b>We cannot simply say that longer climbs are more popular.</b> The answer changes when quality enters the comparison."
     )
     p(
-        "Residual patterns remain, and the analysis is exploratory. No multiple-testing-adjusted confirmatory claim or held-out predictive-performance claim is made. The notebook contains coefficient intervals, residual figures and model-population tables."
-    )
-    nextpage()
-    heading("Sensitivity, conclusions and limitations")
-    p(
-        "Sensitivity analyses compare distinct climbers with tick records, five-record and five-climber subsets, Kaggle-only rows, exclusion of historical grade resolutions, and exclusion of roped lengths above 3,000 feet. Total-grade leaders persist across the two threshold checks; some mean-grade leaders change. Kaggle-only bouldering retains only 59 classified routes and cannot replace the fuller historical boulder population."
+        "PG-13, R and X designations have negative adjusted associations in both sport/trad models. Their comparison group is 'no designation recorded,' which is not a guarantee of safe protection. Stars can also reflect popularity, and we lack route age and access information, so none of these patterns prove a causal effect."
     )
     p(
-        "The principal conclusions are descriptive: 5.10 and V0 lead activity volume in their respective families; per-route averages distinguish a different aspect of participation; geography changes activity composition; and associations involving length depend on adjustment for quality. PCA explains route-profile structure, while regressions address conditional popularity relationships."
-    )
-    p(
-        "Limits include nonrandom user selection, capped histories, ambiguous repeats, unknown observation dates, absent route age and accessibility, geography-dependent source coverage, missing boulder measurements, and mixed feature dates. Removing unobserved routes and complete-case filtering can both introduce selection. Area-clustered intervals do not make this sample representative."
-    )
-    heading("Reproducibility and submission package")
-    p(
-        "The executed notebook is notebooks/02_popularity_eda.ipynb. Shared modules implement transformations, summaries, PCA, regressions and export. Tests cover grade ambiguity, mixed-type precedence, exclusions, join integrity and preservation of the primary population. The standalone pipeline reproduces the analytical outputs; the environment and sources are pinned and documented."
-    )
-    p(
-        "The final Canvas ZIP should contain this named PDF, polished notebooks and supporting Python modules, plus dependencies, definitions and reproducible data access. A website supplements those requirements. This draft stays below the 11-page limit, but final collaboration text must replace the next page's review items before submission."
+        "The notebook includes coefficient intervals, fit checks and residual plots. Intervals allow records within a climbing area to be related (statsmodels developers, n.d.); they cannot remove sampling bias or shared-user effects. Models use complete records and grade groups with at least 30 complete routes.",
+        "CaptionProject",
     )
     nextpage()
-    heading("Statement of work and collaboration: pending team review")
+
+    heading("What we learned, and what we still cannot say")
     p(
-        "Team members: John Elliott Gorsuch and Victor Lee. The user has set the research questions and analytical preferences. The project assets now contain the source pipeline, joined dataset, EDA modules, notebook, figures and published Base44 atlas. That asset history does not establish the individual coursework contributions of both team members."
+        "The clearest finding is that <b>moderate grades carry much of the recorded activity</b>. The 5.10 family leads total sport and trad ticks, while V0 leads bouldering. Looking per route changes the leaders to sport 5.7, trad 5.6 and a near tie between boulder V1 and V0. Sport 5.7 has the highest mean overall."
     )
     p(
-        "Before submission, the team must record each person's actual tasks, their joint review/interpretation work, how collaboration went, and what they would improve next time. Add actual dates, progress, challenges and decisions for synchronous meetings and Slack check-ins. Do not present plans as completed meetings or assign work to Victor without confirmation."
+        "That gives us two useful ways to talk about popularity. Total ticks show where activity is concentrated. Mean ticks show how much activity a route gets on average within its group. We need both, plus route counts and medians, to avoid confusing a large grade group with a more popular typical route."
     )
     p(
-        "The supplied rubric's highest status-update band requires at least three video-based synchronous meetings and one or more Slack check-ins. Verify the expanded course guidelines, the Canvas team name and any AI-assistance disclosure requirements. These are the remaining team-review items, not analytical findings."
+        "Location adds another layer: states differ in total activity and style mix. Route features add still more context. The PCA shows length and pitches moving together, while regression shows that the length-popularity relationship changes after accounting for stars. There is no single feature that gives us a complete explanation of a popular climb."
     )
+    heading("Checks and limits")
+    p(
+        "We checked distinct climbers as an alternative to tick records, five-tick/five-climber subsets, Kaggle-only routes, unresolved-source-grade choices, and lengths above 3,000 feet. The total-grade leaders survive the threshold checks, but some mean leaders change. Kaggle alone has only 59 classified boulders in the matched sample, so it cannot stand in for our fuller bouldering data."
+    )
+    p(
+        "Our sample misses routes without archived ticks and may represent some areas better than others. User histories are capped, repeat records are ambiguous, and the time window is unknown. We also lack route age, approach difficulty, access conditions and comparable boulder measurements. These limits matter when interpreting both regional patterns and feature relationships."
+    )
+    p(
+        "For this project, the goal is to explore those patterns honestly and make them easy to inspect. A future climber recommender could build on the work, but we have not built or validated one here."
+    )
+    heading("Reproducibility")
+    p(
+        "Start with the "
+        + link(notebook, "executed Jupyter notebook")
+        + " for the full EDA, figures, model details and interpretations. The "
+        + link(repo, "GitHub repository")
+        + " contains the source pipeline, data dictionary, pinned inputs, dependencies and instructions for rebuilding the dataset and analysis."
+    )
+    p(
+        "The download and main-build scripts recreate the joined dataset; shared analysis modules recreate the tables, PCA, regressions and Atlas exports. The report builder also recreates the simplified report charts directly from those outputs. Join integrity, grade handling, style precedence and population preservation are covered by tests."
+    )
+    p(
+        "The "
+        + link(atlas, "published Climbing Atlas")
+        + " is a companion for exploring locations and route profiles. The notebook remains the main analytical deliverable."
+    )
+    nextpage()
+
+    heading("Statement of work and collaboration")
+    story.append(Spacer(1, 90))
     heading("References")
     refs = [
-        '[1] Wilder, N. (2014). Factoid: Most Popular Routes by Difficulty. REI Uncommon Path. <link href="https://www.rei.com/blog/uncategorized/factoid-4-most-popular-routes-by-difficulty">Article</link>.',
-        '[2] Present, J., Berger, K., and Boland, C. RouteFinder. <link href="https://jakepresent.github.io/RouteFinder/">Project report</link>.',
-        '[3] Galban, M. Mountain Project Rock Climbing Routes in the U.S., version 2. <link href="https://www.kaggle.com/datasets/matthiasgalban/mountain-project-rock-climbing-routes">Kaggle</link>.',
-        '[4] Ajayi, O., Croft, B., Demeo, J., Sayre, J., and Zhu, J. Rock Climbing Recommendation System. Commit d1d75bbeb143d4fc863dc1d36173b15b9c0f6ba3. <link href="https://github.com/jdemeo/Rock_Climbing_Recommendation_System">Research archive</link>.',
-        '[5] OpenBeta. Historical climbing ratings. Commit 51a0461a44078148135561c651d25a9203330609. <link href="https://github.com/OpenBeta/climbing-data/tree/main/ratings">Repository</link>.',
-        '[6] scikit-learn. PCA and StandardScaler documentation. <link href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA</link>.',
-        '[7] statsmodels. RegressionResults.get_robustcov_results documentation. <link href="https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.get_robustcov_results.html">Clustered covariance</link>.',
+        (
+            "Ajayi, O., Croft, B., Demeo, J., Sayre, J., &amp; Zhu, J. (2019). <i>Rock climbing route recommender</i> [Data set and source code; commit d1d75b]. GitHub.",
+            "https://github.com/jdemeo/Rock_Climbing_Recommendation_System",
+        ),
+        (
+            "Galban, M. (n.d.). <i>Mountain Project rock climbing routes in the U.S.</i> (Version 2) [Data set]. Kaggle.",
+            "https://www.kaggle.com/datasets/matthiasgalban/mountain-project-rock-climbing-routes",
+        ),
+        (
+            "OpenBeta. (n.d.). <i>Climbing data: Ratings</i> [Data set; commit 51a046]. GitHub.",
+            "https://github.com/OpenBeta/climbing-data/tree/main/ratings",
+        ),
+        (
+            "Present, J., Berger, K., &amp; Boland, C. (n.d.). <i>RouteFinder: Choosing the right sport climbing route for you.</i>",
+            "https://jakepresent.github.io/RouteFinder/",
+        ),
+        (
+            "scikit-learn developers. (n.d.). <i>PCA</i> [Software documentation]. Retrieved October 6, 2026, from",
+            "https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html",
+        ),
+        (
+            "statsmodels developers. (n.d.). <i>RegressionResults.get_robustcov_results</i> [Software documentation]. Retrieved October 6, 2026, from",
+            "https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.RegressionResults.get_robustcov_results.html",
+        ),
+        (
+            "Wilder, N. (2014, September 15). <i>Factoid: Most popular routes by difficulty.</i> REI Co-op, Uncommon Path.",
+            "https://www.rei.com/blog/uncategorized/factoid-4-most-popular-routes-by-difficulty",
+        ),
     ]
-    for ref in refs:
-        p(ref, "CaptionProject")
+    for ref, url in refs:
+        # Break long URLs at path separators while retaining their actual link target.
+        display = (
+            escape(url)
+            .replace("/", "/<wbr/>")
+            .replace(".", ".<wbr/>")
+            .replace("_", "_<wbr/>")
+        )
+        p(ref + "<br/>" + link(url, display), "ReferenceProject")
 
     def footer(canvas, doc):
         canvas.saveState()

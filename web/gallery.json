@@ -1,0 +1,314 @@
+[
+  {
+    "label": "Figure 1 \u00b7 Data coverage",
+    "title": "What data do we have?",
+    "description": "Boulders usually lack comparable lengths, pitches and Kaggle stars. Optional protection labels may be absent. Missing labels do not establish safety.",
+    "image": "figures/05_missingness.svg",
+    "alt": "What data do we have? Boulders usually lack comparable lengths, pitches and Kaggle stars. Optional protection labels may be absent. Missing labels do not establish safety."
+  },
+  {
+    "label": "Figure 2 \u00b7 Recorded activity",
+    "title": "Most climbs have just a few records.",
+    "description": "Simple tick-count ranges show the long tail. A few heavily logged routes pull up averages; every retained route has at least one archive record.",
+    "image": "figures/popularity_bins_report.svg",
+    "alt": "Most climbs have just a few records. Simple tick-count ranges show the long tail. A few heavily logged routes pull up averages; every retained route has at least one archive record."
+  },
+  {
+    "label": "Question 1 \u00b7 Top grades by total",
+    "title": "5.10 and V0 lead total activity.",
+    "description": "Top three grades by total ticks within each style. Total activity and mean ticks per route answer different questions.",
+    "headers": [
+      "Style",
+      "Grade",
+      "Routes",
+      "Total ticks",
+      "Mean",
+      "Median"
+    ],
+    "rows": [
+      [
+        "Sport",
+        "5.10",
+        "10,923",
+        "310,717",
+        "28.45",
+        "8"
+      ],
+      [
+        "Sport",
+        "5.9",
+        "4,183",
+        "163,959",
+        "39.20",
+        "12"
+      ],
+      [
+        "Sport",
+        "5.11",
+        "8,826",
+        "150,317",
+        "17.03",
+        "5"
+      ],
+      [
+        "Trad",
+        "5.10",
+        "8,542",
+        "163,711",
+        "19.17",
+        "4"
+      ],
+      [
+        "Trad",
+        "5.8",
+        "5,033",
+        "138,098",
+        "27.44",
+        "5"
+      ],
+      [
+        "Trad",
+        "5.7",
+        "3,965",
+        "129,654",
+        "32.70",
+        "6"
+      ],
+      [
+        "Bouldering",
+        "V0",
+        "4,435",
+        "36,701",
+        "8.28",
+        "3"
+      ],
+      [
+        "Bouldering",
+        "V2",
+        "4,016",
+        "32,765",
+        "8.16",
+        "2"
+      ],
+      [
+        "Bouldering",
+        "V1",
+        "3,893",
+        "32,227",
+        "8.28",
+        "2"
+      ]
+    ]
+  },
+  {
+    "label": "Question 1 \u00b7 Top grades by mean",
+    "title": "Sport 5.7 has the highest mean overall.",
+    "description": "Mean rankings require 30 or more routes per group, not 30 ticks. Sport 5.3 has only 49 routes. V1 and V0 are nearly tied.",
+    "headers": [
+      "Style",
+      "Grade",
+      "Mean ticks",
+      "Routes"
+    ],
+    "rows": [
+      [
+        "Sport",
+        "5.7",
+        "47.31",
+        "1,722"
+      ],
+      [
+        "Sport",
+        "5.3",
+        "46.35",
+        "49"
+      ],
+      [
+        "Sport",
+        "5.8",
+        "44.39",
+        "2,943"
+      ],
+      [
+        "Trad",
+        "5.6",
+        "36.87",
+        "2,171"
+      ],
+      [
+        "Trad",
+        "5.7",
+        "32.70",
+        "3,965"
+      ],
+      [
+        "Trad",
+        "5.5",
+        "32.44",
+        "1,053"
+      ],
+      [
+        "Bouldering",
+        "V1",
+        "8.28",
+        "3,893"
+      ],
+      [
+        "Bouldering",
+        "V0",
+        "8.28",
+        "4,435"
+      ],
+      [
+        "Bouldering",
+        "V4",
+        "8.25",
+        "3,022"
+      ]
+    ]
+  },
+  {
+    "label": "Figure 3 \u00b7 Geography",
+    "title": "Where activity is concentrated.",
+    "description": "The ten states with most historical ticks, highest first. Each segment shows a climbing style. Colorado, California and Utah lead total activity.",
+    "image": "figures/state_counts_report.svg",
+    "alt": "Where activity is concentrated. The ten states with most historical ticks, highest first. Each segment shows a climbing style. Colorado, California and Utah lead total activity."
+  },
+  {
+    "label": "Figure 4 \u00b7 Route profiles",
+    "title": "Length and pitches move together.",
+    "description": "The first two components retain 48% of feature variation. Short protection arrows reflect poor representation in this projection, not a lack of relationship with popularity.",
+    "image": "figures/pca_report.svg",
+    "alt": "Length and pitches move together. The first two components retain 48% of feature variation. Short protection arrows reflect poor representation in this projection, not a lack of relationship with popularity."
+  },
+  {
+    "label": "Question 2 \u00b7 State totals",
+    "title": "Activity by style, in exact counts.",
+    "description": "Same states and order as Figure 3. A large total can reflect more routes, reporting habits or source coverage; it is not a direct measure of regional preference.",
+    "headers": [
+      "State",
+      "Bouldering",
+      "Sport",
+      "Trad",
+      "Total"
+    ],
+    "rows": [
+      [
+        "Colorado",
+        "25,587",
+        "220,587",
+        "139,868",
+        "386,042"
+      ],
+      [
+        "California",
+        "60,376",
+        "120,625",
+        "189,611",
+        "370,612"
+      ],
+      [
+        "Utah",
+        "20,865",
+        "94,117",
+        "92,615",
+        "207,597"
+      ],
+      [
+        "Nevada",
+        "9,334",
+        "63,092",
+        "42,930",
+        "115,356"
+      ],
+      [
+        "Kentucky",
+        "81",
+        "77,779",
+        "12,435",
+        "90,295"
+      ],
+      [
+        "New Hampshire",
+        "11,539",
+        "50,850",
+        "18,538",
+        "80,927"
+      ],
+      [
+        "Arizona",
+        "4,637",
+        "44,727",
+        "22,742",
+        "72,106"
+      ],
+      [
+        "Washington",
+        "5,307",
+        "33,307",
+        "30,448",
+        "69,062"
+      ],
+      [
+        "New York",
+        "3,261",
+        "1,962",
+        "63,355",
+        "68,578"
+      ],
+      [
+        "Oregon",
+        "592",
+        "38,352",
+        "15,035",
+        "53,979"
+      ]
+    ]
+  },
+  {
+    "label": "Question 3 \u00b7 Regression",
+    "title": "Quality changes the length story.",
+    "description": "R\u00b2 increases from 0.121 to 0.213 when stars are added on the same 61,277 routes. R\u00b2 describes the logged outcome in the fitted data, not raw tick counts or future prediction accuracy.",
+    "headers": [
+      "Model",
+      "Routes",
+      "Logged-outcome R\u00b2"
+    ],
+    "rows": [
+      [
+        "Sport/trad, no stars",
+        "61,277",
+        "0.121"
+      ],
+      [
+        "Same routes, with stars",
+        "61,277",
+        "0.213"
+      ],
+      [
+        "Bouldering",
+        "26,488",
+        "0.089"
+      ]
+    ]
+  },
+  {
+    "label": "Question 3 \u00b7 Length comparison",
+    "title": "Longer does not always mean more popular.",
+    "description": "Doubling length has a +11.5% association without stars and \u22128.2% with stars. These are geometric (ticks + 1) comparisons, not arithmetic average count changes or causal effects.",
+    "headers": [
+      "Model comparison",
+      "Length association"
+    ],
+    "rows": [
+      [
+        "Without stars",
+        "+11.5%"
+      ],
+      [
+        "With stars",
+        "\u22128.2%"
+      ]
+    ]
+  }
+]

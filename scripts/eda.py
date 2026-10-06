@@ -762,6 +762,10 @@ def export_web(data, pca, metadata):
         "pitches",
         "protection_group",
         "route_url",
+        "rating_raw",
+        "average_stars",
+        "historical_average_user_rating",
+        "rating_valid_count",
     ]
     clean = core[cols].astype(object).where(core[cols].notna(), None)
     payload = {

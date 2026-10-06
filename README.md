@@ -87,3 +87,7 @@ Code, documentation, tests, and aggregate reports live in Git. Raw archives and 
 Code is MIT licensed. Kaggle and OpenBeta declare CC0 for their respective datasets. The tick research repository declares no data license; public availability and this project's code license do not establish a license for its original records. Provenance and that limitation accompany the derived snapshot. No publisher endorsement or complete census is claimed.
 
 The earlier inventory remains available in release v0.1.0. `python scripts/build.py` rebuilds that inventory; **use `build_main.py` for the project's current analysis dataset**.
+
+### Explorer improvements
+
+The website now supports multiple grade families or a grade range, four map cell sizes, a load-more route list, prominent Mountain Project links, and richer route details. Embeddings use clearly separated tick-count colors. The Visualizations tab includes the revised report figures and grade/state/regression tables, and How it works includes a climbing glossary. The current website name is a placeholder pending team selection. Recreate the report figures with `python scripts/build_report.py`, then export the gallery with `python scripts/export_gallery.py` (report dependencies required).
