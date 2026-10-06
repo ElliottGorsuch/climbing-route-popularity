@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 
 import pandas as pd
+from length_figure import length_comparison
 
 ROOT = Path(__file__).resolve().parents[1]
 EDA = ROOT / "reports/eda"
@@ -115,33 +116,39 @@ def export_gallery():
             "rows": rows,
         }
     )
-    models = pd.read_csv(EDA / "regression_model_comparison.csv")
-    rows = []
-    for name, label in [
-        ("roped_ticks_quality_baseline", "Sport/trad, no stars"),
-        ("roped_ticks_quality", "Same routes, with stars"),
-        ("boulder_ticks", "Bouldering"),
-    ]:
-        r = models.loc[models.name.eq(name)].iloc[0]
-        rows.append([label, f"{int(r.fit_routes):,}", f"{r.r_squared:.3f}"])
+    _summary, correlations = length_comparison()
     items.append(
         {
-            "label": "Question 3 · Regression",
-            "title": "Quality changes the length story.",
-            "description": "R² increases from 0.121 to 0.213 when stars are added on the same 61,277 routes. R² describes the logged outcome in the fitted data, not raw tick counts or future prediction accuracy.",
-            "headers": ["Model", "Routes", "Logged-outcome R²"],
-            "rows": rows,
+            "label": "Question 3 · Length and ticks",
+            "title": "Does a longer climb get more ticks?",
+            "description": "A direct comparison of recorded length and tick counts, separately for sport and trad. No star ratings or adjusted regression are used. The overall rank relationships are weak, even though some long-route groups have high means.",
+            "image": "figures/length_ticks.svg",
+            "alt": "Mean and median historical ticks by recorded length range, with route counts, for sport and trad.",
+            "wide": True,
+            "headers": ["Style", "Routes with length", "Length–tick rank correlation"],
+            "rows": [
+                [r["style"], f"{r['routes']:,}", f"{r['spearman_rho']:.3f}"]
+                for r in correlations
+            ],
+            "caption": "Bars compare mean and median ticks in each length range; n gives the route count. Rank correlation (Spearman) describes whether longer routes tend to have more ticks across all included routes. Missing/nonpositive lengths are excluded. Boulders lack comparable length coverage and are left out. Small groups and heavily logged climbs can pull up means; this is an association, not a causal effect.",
         }
     )
-    items.append(
-        {
-            "label": "Question 3 · Length comparison",
-            "title": "Longer does not always mean more popular.",
-            "description": "Doubling length has a +11.5% association without stars and −8.2% with stars. These are geometric (ticks + 1) comparisons, not arithmetic average count changes or causal effects.",
-            "headers": ["Model comparison", "Length association"],
-            "rows": [["Without stars", "+11.5%"], ["With stars", "−8.2%"]],
-        }
-    )
+    captions = {
+        "Figure 1 · Data coverage": "Each cell gives the percentage of a style's routes missing that field. Darker cells mean more missing data; a missing protection label does not establish safety.",
+        "Figure 2 · Recorded activity": "Each bar gives the percentage of a style's routes in a tick-count range. All panels use the same scale and include routes with at least one archived record.",
+        "Figure 3 · Geography": "Bars add historical ticks by style for the ten highest-total states, in descending order. Segment size shows a style's contribution; totals combine route availability and recorded activity.",
+        "Figure 4 · Route profiles": "Dots show sport/trad profiles in the first two PCA components. Arrows show projected feature relationships, enlarged threefold. These two components retain 48% of feature variation; ticks do not determine the fit.",
+        "Question 1 · Top grades by total": "Grades are ranked by summed ticks within each style. Mean and median values describe ticks per route; YDS families combine their letter subgrades.",
+        "Question 1 · Top grades by mean": "Mean leaders are ranked within each style among groups with at least 30 routes. Sport 5.3 has only 49 routes; V1 and V0 are nearly tied.",
+        "Question 2 · State totals": "Exact tick counts for the same ten states shown in Figure 3. Counts are historical archive records, including ambiguous repeats, rather than complete platform totals.",
+    }
+    for item in items:
+        item.setdefault(
+            "caption",
+            captions[item["label"]]
+            if item["label"] in captions
+            else item["description"],
+        )
     manifest = json.dumps(items, indent=2) + "\n"
     (target / "gallery.json").write_text(manifest)
     (ROOT / "web/gallery.json").write_text(manifest)

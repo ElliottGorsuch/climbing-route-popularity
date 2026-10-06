@@ -52,7 +52,7 @@ function updateRangeOptions() {
 function routeDetail(r) {
   const value = (n, suffix = '') => n == null ? 'Not recorded' : fmt(n) + suffix;
   return `<h3>${escapeHtml(r.route_name || 'Unnamed route')}</h3><p>${escapeHtml(r.state)} · <span class="stylebadge" style="--badge:${colors[r.analysis_type]}">${r.analysis_type}</span></p>
-    <dl class="routestats"><div><dt>Grade family</dt><dd>${escapeHtml(r.analysis_grade_family || 'Unresolved')}</dd></div><div><dt>Original grade</dt><dd>${escapeHtml(r.rating_raw || 'Not recorded')}</dd></div><div><dt>Pitches</dt><dd>${value(r.pitches)}</dd></div><div><dt>Length</dt><dd>${value(r.length_feet, ' ft')}</dd></div><div><dt>Kaggle stars</dt><dd>${value(r.average_stars, ' / 4')}</dd></div><div><dt>Historical rating mean</dt><dd>${value(r.historical_average_user_rating, ' / 4')}</dd></div><div><dt>Historical valid ratings</dt><dd>${value(r.rating_valid_count)}</dd></div><div><dt>Protection</dt><dd>${escapeHtml(r.protection_group)}</dd></div><div><dt>Sample ticks</dt><dd>${fmt(r.ticks)}</dd></div><div><dt>Sampled climbers</dt><dd>${fmt(r.climbers)}</dd></div></dl>
+    <dl class="routestats"><div><dt>Grade family</dt><dd>${escapeHtml(r.analysis_grade_family || 'Unresolved')}</dd></div><div><dt>Original grade</dt><dd>${escapeHtml(r.rating_raw || 'Not recorded')}</dd></div><div><dt>Pitches</dt><dd>${value(r.pitches)}</dd></div><div><dt>Length</dt><dd>${value(r.length_feet, ' ft')}</dd></div><div><dt>Historical valid ratings</dt><dd>${value(r.rating_valid_count)}</dd></div><div><dt>Protection</dt><dd>${escapeHtml(r.protection_group)}</dd></div><div><dt>Sample ticks</dt><dd>${fmt(r.ticks)}</dd></div><div><dt>Sampled climbers</dt><dd>${fmt(r.climbers)}</dd></div></dl>
     <a class="mpbutton" href="${escapeHtml(r.route_url)}" target="_blank" rel="noopener">Open Mountain Project ↗</a>`;
 }
 function cellValue(cell, metric) {
@@ -116,11 +116,15 @@ function renderTable() {
     $('selection').scrollIntoView({behavior:'smooth',block:'center'});
   }));
 }
+function updateHeadline(population) {
+  $('routeCount').textContent=fmt(population.length);
+  $('tickCount').textContent=fmt(population.reduce((n,r)=>n+r.ticks,0));
+  $('stateCount').textContent=new Set(population.map(r=>r.state)).size;
+}
 function refresh(fit=false) {
   filtered=routes.filter(matching); activeCell=null; tableLimit=25; $('clearCell').hidden=true; $('selection').textContent='';
   const total=filtered.reduce((n,r)=>n+r.ticks,0);
-  $('routeCount').textContent=fmt(filtered.length); $('tickCount').textContent=fmt(total);
-  $('stateCount').textContent=new Set(filtered.map(r=>r.state)).size;
+  updateHeadline(filtered);
   $('styleSummary').innerHTML=Object.entries(colors).map(([kind,color])=>{
     const subset=filtered.filter(r=>r.analysis_type===kind); const ticks=subset.reduce((n,r)=>n+r.ticks,0);
     const share=total ? 100*ticks/total : 0;
@@ -175,13 +179,14 @@ async function renderGallery() {
     const response=await fetch('gallery.json');
     if(!response.ok) throw new Error('The report figures could not load. Please reload.');
     const gallery=await response.json();
-    $('figureGallery').innerHTML=gallery.map(item=>`<article class="figurecard"><div class="eyebrow">${escapeHtml(item.label)}</div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p>${item.image ? `<a href="${escapeHtml(item.image)}" target="_blank" rel="noopener" aria-label="Open full-size ${escapeHtml(item.title)}"><img loading="lazy" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt)}"></a><a class="figureopen" href="${escapeHtml(item.image)}" target="_blank" rel="noopener">Open full-size figure ↗</a>` : ''}${item.rows ? `<div class="scroll"><table><thead><tr>${item.headers.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${item.rows.map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : ''}</article>`).join('');
+    $('figureGallery').innerHTML=gallery.map(item=>`<article class="figurecard ${item.wide ? 'wide' : ''}"><div class="eyebrow">${escapeHtml(item.label)}</div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p>${item.image ? `<a href="${escapeHtml(item.image)}" target="_blank" rel="noopener" aria-label="Open full-size ${escapeHtml(item.title)}"><img loading="lazy" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt)}"></a><a class="figureopen" href="${escapeHtml(item.image)}" target="_blank" rel="noopener">Open full-size figure ↗</a>` : ''}${item.rows ? `<div class="scroll"><table><thead><tr>${item.headers.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${item.rows.map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : ''}<p class="figurecaption">${escapeHtml(item.caption || item.description)}</p></article>`).join('');
   } catch(error) { $('figureGallery').textContent=error.message; }
 }
 
 document.querySelectorAll('nav button').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('.page').forEach(page=>page.hidden=page.id!==button.dataset.page);
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===button));
+  updateHeadline(button.dataset.page==='atlas' ? filtered : routes);
   if(button.dataset.page==='atlas'&&map) map.invalidateSize(); if(button.dataset.page==='pca') pcaDraw();
 }));
 async function init() {
@@ -216,6 +221,6 @@ async function init() {
     const csv=[columns.join(','),...filtered.map(r=>columns.map(c=>'"'+String(r[c]??'').replaceAll('"','""')+'"').join(','))].join('\n');
     const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='climbing_filtered_sample.csv';a.click();URL.revokeObjectURL(url);
   });
-  renderGallery(); updateGrades();refresh();$('loadStatus').textContent=`Loaded ${fmt(routes.length)} core rock routes. Default map view shows the contiguous U.S.; Alaska and Hawaii are included and available through the state filter.`;
+  renderGallery(); updateGrades();refresh();$('loadStatus').textContent=`Loaded ${fmt(routes.length)} core rock routes. Default map view shows the contiguous U.S.; Alaska and Hawaii are included and available through the state filter. The full sample represents 48 of 50 states: Louisiana and Nebraska have no retained routes, which does not mean there is no climbing there.`;
 }
 init().catch(error=>{$('loadStatus').textContent=error.message;console.error(error);});

@@ -4,14 +4,16 @@
     "title": "What data do we have?",
     "description": "Boulders usually lack comparable lengths, pitches and Kaggle stars. Optional protection labels may be absent. Missing labels do not establish safety.",
     "image": "figures/05_missingness.svg",
-    "alt": "What data do we have? Boulders usually lack comparable lengths, pitches and Kaggle stars. Optional protection labels may be absent. Missing labels do not establish safety."
+    "alt": "What data do we have? Boulders usually lack comparable lengths, pitches and Kaggle stars. Optional protection labels may be absent. Missing labels do not establish safety.",
+    "caption": "Each cell gives the percentage of a style's routes missing that field. Darker cells mean more missing data; a missing protection label does not establish safety."
   },
   {
     "label": "Figure 2 \u00b7 Recorded activity",
     "title": "Most climbs have just a few records.",
     "description": "Simple tick-count ranges show the long tail. A few heavily logged routes pull up averages; every retained route has at least one archive record.",
     "image": "figures/popularity_bins_report.svg",
-    "alt": "Most climbs have just a few records. Simple tick-count ranges show the long tail. A few heavily logged routes pull up averages; every retained route has at least one archive record."
+    "alt": "Most climbs have just a few records. Simple tick-count ranges show the long tail. A few heavily logged routes pull up averages; every retained route has at least one archive record.",
+    "caption": "Each bar gives the percentage of a style's routes in a tick-count range. All panels use the same scale and include routes with at least one archived record."
   },
   {
     "label": "Question 1 \u00b7 Top grades by total",
@@ -98,7 +100,8 @@
         "8.28",
         "2"
       ]
-    ]
+    ],
+    "caption": "Grades are ranked by summed ticks within each style. Mean and median values describe ticks per route; YDS families combine their letter subgrades."
   },
   {
     "label": "Question 1 \u00b7 Top grades by mean",
@@ -165,21 +168,24 @@
         "8.25",
         "3,022"
       ]
-    ]
+    ],
+    "caption": "Mean leaders are ranked within each style among groups with at least 30 routes. Sport 5.3 has only 49 routes; V1 and V0 are nearly tied."
   },
   {
     "label": "Figure 3 \u00b7 Geography",
     "title": "Where activity is concentrated.",
     "description": "The ten states with most historical ticks, highest first. Each segment shows a climbing style. Colorado, California and Utah lead total activity.",
     "image": "figures/state_counts_report.svg",
-    "alt": "Where activity is concentrated. The ten states with most historical ticks, highest first. Each segment shows a climbing style. Colorado, California and Utah lead total activity."
+    "alt": "Where activity is concentrated. The ten states with most historical ticks, highest first. Each segment shows a climbing style. Colorado, California and Utah lead total activity.",
+    "caption": "Bars add historical ticks by style for the ten highest-total states, in descending order. Segment size shows a style's contribution; totals combine route availability and recorded activity."
   },
   {
     "label": "Figure 4 \u00b7 Route profiles",
     "title": "Length and pitches move together.",
     "description": "The first two components retain 48% of feature variation. Short protection arrows reflect poor representation in this projection, not a lack of relationship with popularity.",
     "image": "figures/pca_report.svg",
-    "alt": "Length and pitches move together. The first two components retain 48% of feature variation. Short protection arrows reflect poor representation in this projection, not a lack of relationship with popularity."
+    "alt": "Length and pitches move together. The first two components retain 48% of feature variation. Short protection arrows reflect poor representation in this projection, not a lack of relationship with popularity.",
+    "caption": "Dots show sport/trad profiles in the first two PCA components. Arrows show projected feature relationships, enlarged threefold. These two components retain 48% of feature variation; ticks do not determine the fit."
   },
   {
     "label": "Question 2 \u00b7 State totals",
@@ -263,52 +269,33 @@
         "15,035",
         "53,979"
       ]
-    ]
+    ],
+    "caption": "Exact tick counts for the same ten states shown in Figure 3. Counts are historical archive records, including ambiguous repeats, rather than complete platform totals."
   },
   {
-    "label": "Question 3 \u00b7 Regression",
-    "title": "Quality changes the length story.",
-    "description": "R\u00b2 increases from 0.121 to 0.213 when stars are added on the same 61,277 routes. R\u00b2 describes the logged outcome in the fitted data, not raw tick counts or future prediction accuracy.",
+    "label": "Question 3 \u00b7 Length and ticks",
+    "title": "Does a longer climb get more ticks?",
+    "description": "A direct comparison of recorded length and tick counts, separately for sport and trad. No star ratings or adjusted regression are used. The overall rank relationships are weak, even though some long-route groups have high means.",
+    "image": "figures/length_ticks.svg",
+    "alt": "Mean and median historical ticks by recorded length range, with route counts, for sport and trad.",
+    "wide": true,
     "headers": [
-      "Model",
-      "Routes",
-      "Logged-outcome R\u00b2"
+      "Style",
+      "Routes with length",
+      "Length\u2013tick rank correlation"
     ],
     "rows": [
       [
-        "Sport/trad, no stars",
-        "61,277",
-        "0.121"
+        "Sport",
+        "32,188",
+        "0.027"
       ],
       [
-        "Same routes, with stars",
-        "61,277",
-        "0.213"
-      ],
-      [
-        "Bouldering",
-        "26,488",
-        "0.089"
+        "Trad",
+        "29,457",
+        "0.048"
       ]
-    ]
-  },
-  {
-    "label": "Question 3 \u00b7 Length comparison",
-    "title": "Longer does not always mean more popular.",
-    "description": "Doubling length has a +11.5% association without stars and \u22128.2% with stars. These are geometric (ticks + 1) comparisons, not arithmetic average count changes or causal effects.",
-    "headers": [
-      "Model comparison",
-      "Length association"
     ],
-    "rows": [
-      [
-        "Without stars",
-        "+11.5%"
-      ],
-      [
-        "With stars",
-        "\u22128.2%"
-      ]
-    ]
+    "caption": "Bars compare mean and median ticks in each length range; n gives the route count. Rank correlation (Spearman) describes whether longer routes tend to have more ticks across all included routes. Missing/nonpositive lengths are excluded. Boulders lack comparable length coverage and are left out. Small groups and heavily logged climbs can pull up means; this is an association, not a causal effect."
   }
 ]

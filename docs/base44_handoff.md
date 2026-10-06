@@ -13,8 +13,8 @@ The Base44 checkpoint **Public atlas entry point and passing scaffold checks** s
 - Map filters: sport/trad/bouldering, state, separate YDS/V grade families, recorded protection, length and route name.
 - Layers: total sample ticks, mean ticks per route, recorded route count, summed route–climber pairs and leading style by ticks.
 - Cell inspection, paginated route table (25 more per click), prominent Mountain Project links and CSV export. Grade chips support multiple families and contiguous ranges; map cell sizes are 0.05°, 0.1°, 0.2° and 0.5°.
-- Embeddings (PCA): the notebook's seven-feature sport/trad fit; style/tick overlays with five distinct count bands, loadings, variance and clicked-route details including grades, pitches and separately labeled rating statistics. The projection is not recomputed in the browser.
-- Visualizations: the four revised report figures plus grade, state and regression tables. How it works: sampling, provenance, classification and a climbing/data glossary. Full regression diagnostics remain in the notebook.
+- Embeddings (PCA): the notebook's seven-feature sport/trad fit; style/tick overlays with five distinct count bands, loadings, variance and clicked-route details including grades, pitches and recorded rating counts; quality averages are omitted from route cards. Climbing style is the default point color. The projection is not recomputed in the browser.
+- Visualizations: the four revised report figures plus grade and state tables, gray captions beneath each card, and a direct length/tick comparison with mean, median and Spearman correlations. Star-adjusted model comparisons are omitted from the website. Coverage is explicitly 48 of 50 states, with no retained Louisiana or Nebraska routes. How it works: sampling, provenance, classification and a climbing/data glossary. Full regression diagnostics remain in the notebook.
 
 ## Data contract and caveats
 
