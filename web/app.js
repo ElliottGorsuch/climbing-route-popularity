@@ -176,7 +176,7 @@ const tickBands = [
 function tickBand(ticks) { return tickBands.find(b=>ticks<=b.max); }
 async function renderGallery() {
   try {
-    const response=await fetch('gallery.json');
+    const response=await fetch('gallery.json?v=20261006b', {cache:'no-cache'});
     if(!response.ok) throw new Error('The report figures could not load. Please reload.');
     const gallery=await response.json();
     $('figureGallery').innerHTML=gallery.map(item=>`<article class="figurecard ${item.wide ? 'wide' : ''}"><div class="eyebrow">${escapeHtml(item.label)}</div><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p>${item.image ? `<a href="${escapeHtml(item.image)}" target="_blank" rel="noopener" aria-label="Open full-size ${escapeHtml(item.title)}"><img loading="lazy" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt)}"></a><a class="figureopen" href="${escapeHtml(item.image)}" target="_blank" rel="noopener">Open full-size figure ↗</a>` : ''}${item.rows ? `<div class="scroll"><table><thead><tr>${item.headers.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${item.rows.map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : ''}<p class="figurecaption">${escapeHtml(item.caption || item.description)}</p></article>`).join('');
