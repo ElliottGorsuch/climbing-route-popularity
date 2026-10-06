@@ -36,4 +36,4 @@ The separate bouldering model fits 26,488 routes with R² = 0.089. It does not i
 
 ## Deliverables and remaining review
 
-The executed notebook, modular code, figures, model tables, data exports, ten-page PDF review draft and local explorer are complete. Base44 hosting is pending an enabled integration and verified deployment. Actual team contributions, collaboration reflection, meeting/check-in evidence and course AI-disclosure requirements must be confirmed before removing report draft markings or submitting the ZIP.
+The executed notebook, modular code, figures, model tables, data exports, ten-page PDF review draft and local explorer are complete. The Base44 atlas is published and verified at https://climb-data-viz.base44.app. Actual team contributions, collaboration reflection, meeting/check-in evidence and course AI-disclosure requirements must be confirmed before removing report draft markings or submitting the ZIP.

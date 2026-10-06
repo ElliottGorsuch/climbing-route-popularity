@@ -269,7 +269,7 @@ def main():
         "CaptionProject",
     )
     p(
-        "The state and geographic-cell summaries use the same core classification. The interactive atlas can filter style, state, grade family, recorded protection, name and length, then show total ticks, mean ticks per route, route counts, route-climber pairs or the leading style by ticks. Cell inspection links to its highest-recorded routes."
+        "The atlas is published at https://climb-data-viz.base44.app. State and geographic-cell summaries use the same core classification. The interactive atlas can filter style, state, grade family, recorded protection, name and length, then show total ticks, mean ticks per route, route counts, route-climber pairs or the leading style by ticks. Cell inspection links to its highest-recorded routes."
     )
     p(
         "The static spatial figure in the notebook uses a contiguous-U.S. view. Alaska and Hawaii remain in nationwide tables and the atlas. Fixed 0.2-degree latitude/longitude cells are not equal-area densities, and coordinates can be shared climbing-area locations. Some source state labels disagree with coordinates; state summaries use labels and maps use coordinates. Empty cells mean no matching retained records, not proof of no climbing."
@@ -343,7 +343,7 @@ def main():
     nextpage()
     heading("Statement of work and collaboration: pending team review")
     p(
-        "Team members: John Elliott Gorsuch and Victor Lee. The user has set the research questions and analytical preferences. The project assets now contain the source pipeline, joined dataset, EDA modules, notebook, figures and local atlas. That asset history does not establish the individual coursework contributions of both team members."
+        "Team members: John Elliott Gorsuch and Victor Lee. The user has set the research questions and analytical preferences. The project assets now contain the source pipeline, joined dataset, EDA modules, notebook, figures and published Base44 atlas. That asset history does not establish the individual coursework contributions of both team members."
     )
     p(
         "Before submission, the team must record each person's actual tasks, their joint review/interpretation work, how collaboration went, and what they would improve next time. Add actual dates, progress, challenges and decisions for synchronous meetings and Slack check-ins. Do not present plans as completed meetings or assign work to Victor without confirmation."

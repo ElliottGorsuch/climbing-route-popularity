@@ -1,5 +1,6 @@
 """Reproducible exploratory analysis of historical sampled climbing ticks."""
 
+import gzip
 import json
 import os
 import re
@@ -805,6 +806,13 @@ def export_web(data, pca, metadata):
     (target / "model_summary.json").write_text(
         (OUT / "regression_metadata.json").read_text()
     )
+
+    snapshots = ROOT / "web/snapshots"
+    snapshots.mkdir(exist_ok=True)
+    for name in ["routes", "pca", "model_summary"]:
+        (snapshots / f"{name}.json.gz").write_bytes(
+            gzip.compress((target / f"{name}.json").read_bytes(), mtime=0)
+        )
 
 
 def additional_plots(data):

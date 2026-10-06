@@ -208,7 +208,7 @@ The strongest limits are sample selection, capped user histories, ambiguous repe
 ## Deliverables and collaboration
 The notebook, Python modules, figures, coefficient/coverage tables and interactive explorer form the analytical package. The final PDF must use the Canvas team name, be at most 11 pages and accompany the notebooks/modules in a ZIP. The final statement of work, collaboration reflection, actual meeting/check-in evidence, and any required AI-assistance disclosure need team confirmation before submission; they are not fabricated here.
 
-The atlas is a tested local companion prepared for Base44 integration. Actual Base44 hosting requires the connected integration and a verified deployment URL.""")
+The atlas is published on [Base44](https://climb-data-viz.base44.app), with the same verified aggregate counts and PCA exports as this notebook. The hosted root redirects to its static atlas entry point. See the [deployment notes](../docs/base44_handoff.md).""")
     notebook.cells = cells
     notebook.metadata = {
         "kernelspec": {

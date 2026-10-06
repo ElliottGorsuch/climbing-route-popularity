@@ -1,34 +1,36 @@
-# Base44 handoff: Climbing Popularity Atlas
+# Base44 deployment: Climbing Popularity Atlas
 
-Status: the local explorer is implemented and tested. No Base44 deployment has been created. The Base44 integration was discovered and suggested, but connection is unconfirmed. The existing 14er app is a design reference; no changes have been made to it.
+The atlas is published at **https://climb-data-viz.base44.app**. Editor: https://app.base44.com/apps/6ac426cac49047cf8269638b/editor/preview. App ID: `6ac426cac49047cf8269638b` (Base44 builder name: ClimbInsights). The existing Colorado 14er app served as a design reference.
 
-## Proposed new application
+## Deployment structure
 
-Name: Climbing Popularity Atlas. Match the reference site's restrained green/gray palette, serif page headings, broad interactive explorer, simple controls, linked table and explanatory side panel. Preserve truthful source/sample labels.
+The complete tested `web/` prototype and aggregate JSON exports are served from `public/atlas/` in the Base44 app. `src/pages/AtlasHome.jsx` redirects the React entry page to `/atlas/index.html`, using the supplied `web/base44/AtlasHome.jsx`. `src/App.jsx` imports this page and uses it for the wildcard route, retaining the existing Base44 providers. A direct static entry avoids Base44's iframe restrictions. Data load from the same origin; no per-route database import, runtime ZIP proxy or user histories are needed.
 
-The prototype source is `web/index.html`, `web/styles.css`, `web/app.js`. Generated `web/data/routes.json`, `pca.json` and `model_summary.json` are in the explorer ZIP release asset. Static delivery avoids storing personal user records and avoids a costly per-route Base44 entity import. Serve/fetch the exported aggregates as static assets or from a verified public release URL; keep large datasets out of database row limits. Verify actual Base44 asset storage and client fetch support after connection before choosing the final hosting arrangement. No secret keys or user identifiers are needed.
+The Base44 checkpoint **Public atlas entry point and passing scaffold checks** saves the deployed integration. The public root resolves to the atlas. Publish changes from the Base44 editor after updating the hosted assets and creating a checkpoint. The GitHub atlas ZIP includes all prototype files and real uncompressed JSON exports. `eda.py` also writes deterministic compressed snapshots in `web/snapshots/` for alternative static delivery.
 
-## Implemented pages
+## Implemented exploration
 
-1. **Explore the map:** filters for style, U.S. state, grade family, recorded protection, length and name. Cells can show total sample ticks, per-route averages, route counts, route–climber pairs or leading style by ticks. Cell inspection links to top routes. Filtered CSV export preserves aggregate data.
-2. **PCA biplot:** same seven-feature standardized fit as the notebook; fixed plotted route sample; style/tick coloring; selected-route details; feature arrows and explained variance. Popularity is an overlay, not a PCA input.
-3. **How it works:** classification, primary/sensitivity metrics, source uncertainty, geography/PCA/regression limitations, privacy and provenance links.
+- Map filters: sport/trad/bouldering, state, separate YDS/V grade families, recorded protection, length and route name.
+- Layers: total sample ticks, mean ticks per route, recorded route count, summed route–climber pairs and leading style by ticks.
+- Cell inspection, linked top-25 route table and CSV export.
+- PCA: the notebook's seven-feature sport/trad fit; style/tick overlays, loadings, variance and clicked-route details. The projection is not recomputed in the browser.
+- Methods: sampling, provenance, classification and interpretation limits. Regression results and diagnostics remain in the primary notebook and report.
 
-## Data contract
+## Data contract and caveats
 
-`routes.json` contains `columns`, compact `rows`, and source metadata. Each row is one core rock route, retaining ticks and climbers as separate counts. `analysis_map_valid` excludes implausible coordinate outliers only from mapping. Columns include IDs, route names/links, state, analysis style and grade, area coordinates, counts, length, pitches and protection.
+`routes.json` has compact `columns` and `rows`: one record per core rock route, 96,735 total and 1,939,376 tick records. Counts of records and sampled climbers remain separate. No five-tick minimum applies. `analysis_map_valid` excludes one gross coordinate outlier from mapping only; unresolved state/coordinate disagreements remain disclosed.
 
-`pca.json` contains the plotted 6,000-route sample with component scores, fit metadata and loadings. All PCA scores remain available in the analytical outputs. Label arrows ×3, scores in component SD units, the two-component variance total, plot clipping and per-feature representation limitations.
+`pca.json` contains 6,000 plotted sample routes, scores, fitted metadata and loadings. 5,968 fall within the displayed ±4.5 component SD window; full scores remain in the analytical package. PC1+PC2 represent 48.0% of feature variance. Popularity is an overlay; protection flags are poorly represented in these components.
 
-Primary ticks count archive rows including ambiguous repeats. The archive commit date is 2019-04-21; observation dates are unknown. No UI label should imply current/full Mountain Project totals. Summed per-route climbers are participation pairs, not distinct people across an area. Coordinates represent climbing areas and cell bins are not equal-area densities.
+Primary ticks are archive rows including ambiguous repeats. The archive commit date is April 21, 2019; observation dates are unknown and histories were capped at 1,000. These are not current/full Mountain Project totals. Summed climbers are route–climber pairs, not distinct people across an area. Coordinates describe climbing areas; 0.2° bins are not equal-area densities. The source archive specifies no data license.
 
-## Local preview and checks
+## Verification and local preview
+
+The public page loads the complete counts above. V0 bouldering filters agree with the notebook: 4,435 routes and 36,701 ticks. Local browser checks include map/style layers, cell-linked tables, Hawaii/Alaska, PCA navigation, CSV export and phone-width layout. Base44 lint, typecheck and production build pass; scaffold prop annotations and Vite types were corrected during integration.
 
 ```bash
 python scripts/eda.py
 python -m http.server 8765 --directory web --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8765`. Leaflet is pinned to stable 1.9.4 with CDN integrity hashes. OpenStreetMap tiles retain attribution and require internet. A loading failure is displayed rather than silently substituting fictional data.
-
-Test state/style/grade filtering, all metric layers, Hawaii/Alaska coverage, unknown lengths, empty search results, filter reset, cell inspection/table synchronization, CSV export, PCA color/point details, method navigation and mobile width. Verify a published URL and its actual counts before declaring hosting complete.
+Leaflet is pinned to 1.9.4 with integrity hashes; OpenStreetMap retains attribution. Library/tiles require internet. Missing exports or failed library loads display an error rather than substituting invented records.

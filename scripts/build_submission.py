@@ -57,7 +57,11 @@ def main():
         DIST / f"climbing_eda_review_{VERSION}.zip",
         [(report, report.name)] + [(p, p.relative_to(ROOT).as_posix()) for p in review],
     )
-    site = sorted(p for p in (ROOT / "web").rglob("*") if p.is_file())
+    site = sorted(
+        p
+        for p in (ROOT / "web").rglob("*")
+        if p.is_file() and "snapshots" not in p.parts
+    )
     site += [
         ROOT / "docs/base44_handoff.md",
         ROOT / "docs/sources.md",

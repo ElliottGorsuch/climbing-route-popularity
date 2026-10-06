@@ -9,7 +9,7 @@ Canvas team name supplied: **John Elliott Gorsuch and Victor Lee**. The PDF uses
 - Pinned direct dependencies and full environment lock.
 - Main and derived aggregate data, dictionaries, coverage, source manifest, model/PCA metadata, PNG/SVG figures.
 - Ten-page team-review PDF: `output/pdf/John Elliott Gorsuch and Victor Lee.pdf`.
-- Interactive atlas source and generated-data release bundle; local preview verified. Base44 hosting remains pending connection and deployment verification.
+- Interactive atlas source and generated-data release bundle; local preview and public Base44 deployment verified: https://climb-data-viz.base44.app.
 
 ## Required team review before final submission
 
