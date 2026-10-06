@@ -152,6 +152,7 @@ def export_gallery():
     manifest = json.dumps(items, indent=2) + "\n"
     (target / "gallery.json").write_text(manifest)
     (ROOT / "web/gallery.json").write_text(manifest)
+    (ROOT / "web/gallery-20261006b.json").write_text(manifest)
 
 
 if __name__ == "__main__":
