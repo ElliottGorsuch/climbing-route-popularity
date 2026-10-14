@@ -1,6 +1,6 @@
 # U.S. climbing route popularity
 
-SIADS 593 academic team project by **Elliot Gorsuch** and **Victor Lee** exploring **what characteristics popular rock climbing routes have in common**.
+SIADS 593 academic team project by **Elliott Gorsuch** and **Victor Lee** exploring **what characteristics popular rock climbing routes have in common**.
 
 The main project dataset is **`climbing_routes_main.parquet`**: **97,437 U.S. routes, 46 columns, and 26,743 bouldering routes**. A strict inner join on Mountain Project route ID retains only routes observed in a historical tick sample. The primary popularity measure is **`sampled_tick_record_count`**, the number of tick-derived archive records for a route, including ambiguous repeats. **`sampled_climber_count`** provides a distinct-user sensitivity comparison. Neither is a complete Mountain Project total.
 
@@ -24,11 +24,11 @@ The [findings](reports/eda/findings.md), [analysis methods](docs/eda_methods.md)
 
 ## Team contributions
 
-Elliot Gorsuch led implementation: assembling sources, directing cleaning and the route-ID join, developing EDA and visualizations, and preparing the notebook, report and companion website with AI assistance. He selected the climbing-specific definitions and reviewed results through several revisions.
+Elliott Gorsuch led implementation: assembling sources, directing cleaning and the route-ID join, developing EDA and visualizations, and preparing the notebook, report and companion website with AI assistance. He selected the climbing-specific definitions and reviewed results through several revisions.
 
-Victor Lee contributed through repeated joint discussions of project goals, research questions and analytical approach. Implementation was concentrated with Elliot; the team agreed on the direction together.
+Victor Lee contributed through repeated joint discussions of project goals, research questions and analytical approach. Implementation was concentrated with Elliott; the team agreed on the direction together.
 
-The archive PDF retains the supplied Canvas team name, John Elliott Gorsuch and Victor Lee. Elliot is the professional name used here.
+The archive PDF retains the supplied Canvas team name, John Elliott Gorsuch and Victor Lee. Elliott is the professional name used here.
 
 ## Explore or reproduce
 
